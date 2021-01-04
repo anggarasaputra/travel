@@ -17,6 +17,10 @@ class TravelOrder(models.Model):
 	departure_date = fields.Date('Departure Date',required=True,related='departure.schedule.departure_date', store=True)
 	departure_time = fields.Float('Departure Time',required=True,related='departure.departure_perpool', store=True)
 
+	lokasi_penjemputan = fields.Char(string="Lokasi Penjempitan")
+	latitut = fields.Char(string='Latitut')
+	longtitude = fields.Char(string='Longtitude')
+
 	state = fields.Selection([
             ('order', 'Order'),
             ('waiting', 'Waiting Payment'),

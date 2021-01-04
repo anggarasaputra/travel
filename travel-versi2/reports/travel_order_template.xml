@@ -51,6 +51,19 @@
 									<span t-foreach="doc.tree_seat_number" t-as="i"><t t-esc="i.seat_list.seat_number"/> : Rp <t t-esc="i.seat_list.price"/>, <br/></span>
 								</div>
 							</div>
+							<div class="row">
+								<div class="col-xs-1" style="font-size: 15px !important;" >
+									<t t-if="doc.state =='waiting'">
+
+											Status bayar : Belum Dibayar
+
+									</t>
+									<t t-if="doc.state =='travel'">
+										Status bayar : Sudah Dibayar
+									</t>
+
+								</div>
+							</div>
 							<div class="oe_structure"/>
 						</div>
 					</t>
