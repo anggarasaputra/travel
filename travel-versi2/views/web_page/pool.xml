@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<odoo>
+	<data>
+
+		<!-- Halaman List Pool -->
+		<template id="pool">
+			<t t-call="website.layout">
+                <t t-set="title">Travel</t>
+                <div class="oe_structure">
+					<div class="jumbotron text-center">
+						<h1>List Pool</h1>
+					</div>
+					<div class="container">
+						<br/>
+						<div class="col-md-8 col-md-offset-2">
+
+							<div class="panel panel-primary o_panel s_panel">
+								<div class="panel-body table-responsive">
+
+									<table class="table table-striped table-hover">
+										<thead>
+											<tr>
+												<th class="col-md-1">No</th>
+												<th class="col-md-6">City</th>
+												<th class="col-md-8">Address</th>
+											</tr>
+										</thead>
+										<tbody>
+											<t t-set="i" t-value="0"/>
+											<t t-foreach="pools" t-as="pool">
+												<t t-set="i" t-value="i+1"/>
+												<tr>
+													<td> <span t-esc="i"/> </td>
+													<td><t t-esc="pool.city"/></td>
+													<td>
+														<ul class="list-unstyled">
+															<t t-foreach="pool.pools" t-as="address_item">
+																<li><t t-esc="address_item.address"/></li>
+															</t>
+														</ul>
+													</td>
+												</tr>
+											</t>
+										</tbody>
+									</table>
+								</div>
+							</div>
+
+						</div>
+                    </div>
+                </div>
+            </t>
+		</template>
+
+	</data>
+</odoo>
