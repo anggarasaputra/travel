@@ -22,3 +22,16 @@ class TesApi(http.Controller):
             travel.append(val)
         data = {'status': 200, 'response': travel, 'massege': 'Success'}
         return data
+
+    @http.route('/api/bank_statement/', type='json', auth='user')
+    def bank_statement(self, **rec):
+        banks = request.env['account.journal'].search([])
+        bank = []
+        for i in banks:
+            val = {
+                'name': i.name,
+                'bank_acc_number': i.bank_acc_number,
+            }
+            bank.append(val)
+        data = {'status': 200, 'response': bank, 'massege': 'Success'}
+        return data
