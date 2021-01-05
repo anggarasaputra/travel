@@ -4,8 +4,8 @@ from odoo.http import request
 
 class TesApi(http.Controller):
 
-    @http.route('/api/history_travel/', type='json', auth='user')
-    def history_travel(self, **rec):
+    @http.route('/api/history_order/', type='json', auth='user')
+    def history_order(self, **rec):
         id = int(rec['partner_id'])
         travels = request.env['travel.order'].search([('partner_id', '=', id)])
         travel = []
