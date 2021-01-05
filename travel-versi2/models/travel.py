@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from odoo import models, fields, api, _
+from datetime import datetime
 
 class TravelOrder(models.Model):
 	_name = 'travel.order'
@@ -59,6 +60,25 @@ class TravelOrder(models.Model):
 		self.write({'state' : 'waiting'})
 
 	def validate(self):
+		invoice = self.env['account.invoice']
+		product = self.env['product.product'].search([('name','=', 'Tiket')], limit=1)
+		lines = []
+		line_inv = {
+			'product_id': product.id,
+			'name': product.name,
+			'quantity': 1,
+			'price_unit': self.price_travel,
+			'invoice_line_tax_ids': False,
+			'account_id': 87,
+		}
+		lines.append((0, 0, line_inv))
+		heder_inv ={
+			'partner_id': self.partner_id.id,
+			'date_invoice': datetime.now().date(),
+			'invoice_line_ids': lines
+		}
+		validate_invoice = invoice.create(heder_inv)
+		validate_invoice.action_invoice_open()
 		self.write({'state' : 'travel'})
 
 	def cancel(self):
