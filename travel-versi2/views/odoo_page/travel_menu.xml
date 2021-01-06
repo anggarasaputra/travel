@@ -31,6 +31,45 @@
 		</field>
 	</record>
 
+	<record id="config_setting_travel_view_form_inherit" model="ir.ui.view">
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="model">res.config.settings</field>
+        <field name="name">config.travel</field>
+        <field name="priority">100</field>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('settings')]" position="inside">
+                <div class="app_settings_block"
+                     data-string="Travel"
+                     string="Travel"
+                     data-key="travel-versi2"
+                >
+                    <h2 name="travel-versi2">
+                        Satting COA Travel Order
+                    </h2>
+                    <div name="travel-varsi2"
+                         class="row mt16 o_settings_container"
+                    >
+                        <div class="col-xs-12 col-md-6 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <field name="coa_travel"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+	 <record id="res_config_travel_settings_action" model="ir.actions.act_window">
+        <field name="context">{'module' : 'travel-versi2'}</field>
+        <field name="name">Settings</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="view_id" ref="config_setting_travel_view_form_inherit"/>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+    </record>
+
 	<act_window id="action_travel" name="Travel" res_model="travel.order" view_mode="tree,form"	/>
 
 	<menuitem id="menu_travel"
