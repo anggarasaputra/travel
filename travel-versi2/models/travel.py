@@ -61,12 +61,13 @@ class TravelOrder(models.Model):
 
 	def validate(self):
 		invoice = self.env['account.invoice']
-		product = self.env['product.product'].search([('name','=', 'Tiket')], limit=1)
-		coa =self.env['ir.config_parameter'].sudo().get_param('travel-versi2.coa_travel')
+		productss = self.env['ir.config_parameter'].sudo().get_param('travel-versi2.produk_travel')
+		product_data = self.env['product.product'].search([('id','=', productss)])
+		coa = self.env['ir.config_parameter'].sudo().get_param('travel-versi2.coa_travel')
 		lines = []
 		line_inv = {
-			'product_id': product.id,
-			'name': product.name,
+			'product_id': product_data.id,
+			'name': product_data.name,
 			'quantity': 1,
 			'price_unit': self.price_travel,
 			'invoice_line_tax_ids': False,
