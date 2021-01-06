@@ -49,4 +49,8 @@
 
 	<menuitem id="submenu_list_schedule" name="List Schedule" parent="menu_list_schedule" action="schedule_menu"/>
 
+	<menuitem id="menu_config_travel" name="Configuration" parent="menu_travel"/>
+
+	<menuitem id="submenu_config_travel" name="Settings" parent="menu_config_travel" action="res_config_travel_settings_action"/>
+
 </odoo>

@@ -62,6 +62,7 @@ class TravelOrder(models.Model):
 	def validate(self):
 		invoice = self.env['account.invoice']
 		product = self.env['product.product'].search([('name','=', 'Tiket')], limit=1)
+		coa =self.env['ir.config_parameter'].sudo().get_param('travel-versi2.coa_travel')
 		lines = []
 		line_inv = {
 			'product_id': product.id,
@@ -69,7 +70,7 @@ class TravelOrder(models.Model):
 			'quantity': 1,
 			'price_unit': self.price_travel,
 			'invoice_line_tax_ids': False,
-			'account_id': 87,
+			'account_id': coa,
 		}
 		lines.append((0, 0, line_inv))
 		heder_inv ={

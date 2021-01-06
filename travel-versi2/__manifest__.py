@@ -9,6 +9,7 @@
 				'views/odoo_page/travel_menu.xml',
 				'views/odoo_page/pool_view.xml',
 				'views/odoo_page/schedule_view.xml',
+				'views/odoo_page/config_setting_travel.xml',
 				'views/template/web_template.xml',
 				'views/web_page/404.xml',
 				'views/web_page/login.xml',
