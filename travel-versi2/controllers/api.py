@@ -35,3 +35,25 @@ class TesApi(http.Controller):
             bank.append(val)
         data = {'status': 200, 'response': bank, 'massege': 'Success'}
         return data
+
+    @http.route('/api/scedule/', type='json', auth='user')
+    def scedule_brangkat(self, **rec):
+        scedule = request.env['travel.schedule'].search([('state', '=', 'confirm')])
+        response = []
+        for i in scedule:
+            list = []
+            for line in i.order_tiket:
+                v = {
+                    'pool_location': line.pool_location.city,
+                    'pool_location_from': line.pool_location_from.city,
+                    'price_from_destination' : line.price_from_destination,
+                    'departure_perpool': line.departure_perpool,
+                }
+                list.append(v)
+            val = {
+                'name': i.name,
+                'line': list,
+            }
+            response.append(val)
+        data = {'status': 200, 'response': response, 'massege': 'Success'}
+        return data
