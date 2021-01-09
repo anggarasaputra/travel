@@ -25,8 +25,10 @@
 						<page name="pool_dep" string="Pool Departure">
 							<field name="pool_list_dep">
 								<tree string="Pool" editable="bottom">
-									<field name="pool_location" domain="[('city_ids', '=', parent.departure)]"/>
+									<field name="pool_location_from" />
+									<field name="pool_location" />
 									<field name="departure_perpool" widget="float_time"/>
+									<field name="price_from_destination"/>
 								</tree>
 							</field>
 						</page>

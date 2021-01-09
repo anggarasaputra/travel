@@ -31,9 +31,11 @@ class PoolLine(models.Model):
 	_name = 'travel.pool.line'
 	schedule = fields.Many2one('travel.schedule', string="Schedule",ondelete='cascade')
 	schedule_dest = fields.Many2one('travel.schedule', string="Schedule",ondelete='cascade')
+	pool_location_from = fields.Many2one('travel.pool.place')
 	pool_location = fields.Many2one('travel.pool.place')
 	name = fields.Char(compute="_compute_pool_name", store=False)
 	departure_perpool = fields.Float('Departure Time')
+	price_from_destination = fields.Float('Price')
 
 	@api.multi
 	def _compute_pool_name(self):
