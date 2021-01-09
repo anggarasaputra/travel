@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<odoo>
+	<record id="view_form_pool" model="ir.ui.view">
+    <field name="name">City</field>
+    <field name="model">travel.pool.city</field>
+    <field name="arch" type="xml">
+      <form string="Pool">
+        <sheet>
+            <group>
+                <group>
+				    <field name="city"/>
+			    </group>
+            </group>
+        </sheet>
+      </form>
+    </field>
+  </record>
+
+	<record id="view_tree_pool" model="ir.ui.view">
+		<field name="name">City Tree</field>
+		<field name="model">travel.pool.city</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="city"/>
+			</tree>
+		</field>
+	</record>
+</odoo>

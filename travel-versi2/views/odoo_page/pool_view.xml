@@ -6,17 +6,9 @@
     <field name="arch" type="xml">
       <form string="Pool">
         <sheet>
-			<div class="oe_title" style="width: 300px;">
-				<label for="city" class="oe_edit_only"/>
-					<h1>
-						<field name="city"/>
-					</h1>
-			</div>
-		  <notebook>
-			<page name="pools_list" string="Pool">
-			<field name="pools"/>
-			</page>
-          </notebook>
+			<group>
+				<field name="city"/>
+			</group>
         </sheet>
       </form>
     </field>
@@ -49,7 +41,7 @@
 		<field name="arch" type="xml">
 			<tree>
 				<field name="city"/>
-				<field name="pools"/>
+<!--				<field name="pools"/>-->
 			</tree>
 		</field>
 	</record>
@@ -60,7 +52,7 @@
 		<field name="arch" type="xml">
 			<search>
 				<field name="city"/>
-				<field name="pools"/>
+<!--				<field name="pools"/>-->
 			</search>
 		</field>
 	</record>

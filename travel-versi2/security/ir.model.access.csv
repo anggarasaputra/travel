@@ -6,3 +6,5 @@ access_travel_pool_place_group_user,travel.pool.place.customer,model_travel_pool
 access_travel_schedule_group_user,travel.schedule.customer,model_travel_schedule,base.group_user,1,1,1,1
 access_travel_pool_line_group_user,travel.pool.line.customer,model_travel_pool_line,base.group_user,1,1,1,1
 access_travel_seat_line_group_user,travel.seat.line.customer,model_travel_seat_line,base.group_user,1,1,1,1
+access_travel_pool_jalur,travel.pool.jalur,model_travel_pool_jalur,,1,1,1,1
+access_travel_pool_track,travel.pool.track,model_travel_pool_track,,1,1,1,1

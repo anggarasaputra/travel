@@ -6,15 +6,25 @@ class TravelSchedule(models.Model):
 
 	departure = fields.Many2one('travel.pool.city', required=True)
 	destination = fields.Many2one('travel.pool.city', required=True)
+	track = fields.Many2one('travel.pool.jalur', required=True)
 	departure_date = fields.Date('Departure Date',required=True)
 	# departure_time = fields.Float('Departure Time',required=True)
 	vehicle = fields.Many2one('fleet.vehicle', required=True)
 	order_list = fields.One2many('travel.order', 'schedule_id')
+	order_tiket = fields.One2many('travel.pool.line', 'schedule')
 	pool_list_dep = fields.One2many('travel.pool.line', 'schedule')
 	pool_list_dest = fields.One2many('travel.pool.line', 'schedule_dest')
 	seat_list = fields.One2many('travel.seat', 'schedule_id')
 	#price = fields.Float('Price', required=True)
 	name = fields.Char(string='Schedule Reference', required=True, copy=False, readonly=True, index=True, default=lambda self: _('New Schedule'))
+	state = fields.Selection([
+		('draft', 'Draft'),
+		('confirm', 'Confirm'),
+	], string='Status', readonly=True, default='draft')
+
+	def action_confim(self):
+		for rec in self:
+			rec.state = 'confirm'
 
 	@api.model
 	def create(self, vals):
@@ -27,12 +37,36 @@ class TravelSchedule(models.Model):
 	def get_max_seats(self):
 		return self.vehicle.seats;
 
+	@api.onchange('track', 'departure', 'destination')
+	def jadwal_tujuan(self):
+		if self.track and self.departure and self.destination:
+			for rec in self:
+				lines = [(5, 0, 0)]
+				for line in self.track.city:
+					var = {
+						'pool_location_from': self.departure.id,
+						'pool_location': line.rute_jalur.id,
+					}
+					lines.append((0, 0, var))
+				for line in self.track.city:
+					var = {
+						'pool_location_from': line.rute_jalur.id,
+						'pool_location': self.destination.id,
+					}
+					lines.append((0, 0, var))
+				var = {
+						'pool_location_from': self.departure.id,
+						'pool_location': self.destination.id,
+					}
+				lines.append((0, 0, var))
+				rec.order_tiket = lines
+
 class PoolLine(models.Model):
 	_name = 'travel.pool.line'
 	schedule = fields.Many2one('travel.schedule', string="Schedule",ondelete='cascade')
 	schedule_dest = fields.Many2one('travel.schedule', string="Schedule",ondelete='cascade')
-	pool_location_from = fields.Many2one('travel.pool.place')
-	pool_location = fields.Many2one('travel.pool.place')
+	pool_location_from = fields.Many2one('travel.pool.city')
+	pool_location = fields.Many2one('travel.pool.city')
 	name = fields.Char(compute="_compute_pool_name", store=False)
 	departure_perpool = fields.Float('Departure Time')
 	price_from_destination = fields.Float('Price')
@@ -40,7 +74,7 @@ class PoolLine(models.Model):
 	@api.multi
 	def _compute_pool_name(self):
 		for record in self:
-			record.name = record.pool_location.city_ids.city + '/' + record.pool_location.address
+			record.name = record.pool_location.city
 
 	def get_schedule(self):
 		return self.schedule
