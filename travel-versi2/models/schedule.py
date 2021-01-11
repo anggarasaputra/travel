@@ -42,6 +42,11 @@ class TravelSchedule(models.Model):
 		if self.track and self.departure and self.destination:
 			for rec in self:
 				lines = [(5, 0, 0)]
+				var = {
+					'pool_location_from': self.departure.id,
+					'pool_location': self.destination.id,
+				}
+				lines.append((0, 0, var))
 				for line in self.track.city:
 					var = {
 						'pool_location_from': self.departure.id,
@@ -54,11 +59,6 @@ class TravelSchedule(models.Model):
 						'pool_location': self.destination.id,
 					}
 					lines.append((0, 0, var))
-				var = {
-						'pool_location_from': self.departure.id,
-						'pool_location': self.destination.id,
-					}
-				lines.append((0, 0, var))
 				rec.order_tiket = lines
 
 class PoolLine(models.Model):
@@ -106,6 +106,7 @@ class VehicleSeat(models.Model):
 	seat_line = fields.One2many('travel.seat.line', 'seat_list')
 	seat_number = fields.Integer('Seat Number')
 	price = fields.Float('Price')
+	hasil = fields.Char(string='Hasil')
 	
 	@api.multi
 	def _compute_seat_name(self):

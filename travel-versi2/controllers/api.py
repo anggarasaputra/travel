@@ -44,6 +44,9 @@ class TesApi(http.Controller):
             list = []
             for line in i.order_tiket:
                 v = {
+                    'id_line': line.id,
+                    'id_pool_location': line.pool_location.id,
+                    'id_pool_location_from': line.pool_location_from.id,
                     'pool_location': line.pool_location.city,
                     'pool_location_from': line.pool_location_from.city,
                     'price_from_destination' : line.price_from_destination,
@@ -52,8 +55,32 @@ class TesApi(http.Controller):
                 list.append(v)
             val = {
                 'name': i.name,
+                'id_departure': i.departure.id,
+                'id_destination': i.destination.id,
+                'departure': i.departure.city,
+                'destination': i.destination.city,
                 'line': list,
             }
             response.append(val)
+        data = {'status': 200, 'response': response, 'massege': 'Success'}
+        return data
+
+    @http.route('/api/tiket_order/', type='json', auth='user')
+    def tiket_order(self, **rec):
+        tikets_from = request.env['travel.pool.line'].search([('schedule.name', '=', rec['group']),('pool_location_from.city','=', rec['pool_location_from'])])
+        tikets = request.env['travel.pool.line'].search([('schedule.name', '=', 'SCH002'), ('pool_location.city', '=', rec['pool_location'])])
+        response = []
+        for x in tikets_from:
+            var = {
+                'pool_location_from': x.pool_location_from.city,
+                'pool_location': x.pool_location.city,
+            }
+            response.append(var)
+        for y in tikets:
+            var = {
+                'pool_location_from': y.pool_location_from.city,
+                'pool_location': y.pool_location.city,
+            }
+            response.append(var)
         data = {'status': 200, 'response': response, 'massege': 'Success'}
         return data
