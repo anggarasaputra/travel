@@ -34,6 +34,7 @@
 									<field name="pool_location" />
 									<field name="departure_perpool" widget="float_time"/>
 									<field name="price_from_destination"/>
+                                    <field name="number" invisible="1"/>
 								</tree>
 							</field>
 						</page>
