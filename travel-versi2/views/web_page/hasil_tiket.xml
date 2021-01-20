@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+        <!-- Halaman Hasil Tiket -->
+        <template id="hasiltiket">
+            <t t-call="website.layout">
+                <t t-set="title">Travel</t>
+                <div class="oe_structure">
+                    <div class="container">
+                        <div class="row">
+                            <t t-foreach="schedules" t-as="schedule">
+                                <div class="col-sm-6">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h5 class="card-title">
+                                                <t t-esc="schedule.pool_location_from.city"/>
+                                                -
+                                                <t t-esc="schedule.pool_location.city"/>
+                                            </h5>
+                                            <p class="card-text">Jam :
+                                                <t t-esc="schedule.departure_perpool"/>
+                                            </p>
+                                            <p class="card-text">Harga :
+                                                <t t-esc="schedule.price_from_destination"/>
+                                            </p>
+                                            <a t-attf-href="/travel/cari_tiket/seat/{{slug(schedule)}}">
+                                                <button class="btn btn-success">
+                                                    Order
+                                                </button>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </t>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>

@@ -1,91 +1,73 @@
 <?xml version="1.0"?>
 <odoo>
 	<data>
-		<t t-name="travel-versi2.schedule">
+
+		<!-- Halaman List Pool -->
+		<template id="schedule">
 			<t t-call="website.layout">
                 <t t-set="title">Travel</t>
-                    <div class="oe_structure">
-					    <div class="container">
-					        <section class="search-banner text-white py-3 form-arka-plan" id="search-banner">
-                                    <div class="container py-5 my-5">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="card acik-renk-form">
-                                                    <div class="card-body">
-                                                        <div class="row">
-                                                            <div class="col-md-4">
-                                                                <div class="form-group ">
-                                                                    <select class="form-control search-slt" id="exampleFormControlSelect1">
-                                                                        <option>Select Vehicle</option>
-                                                                        <option>Example one</option>
-                                                                        <option>Example one</option>
-                                                                        <option>Example one</option>
-                                                                        <option>Example one</option>
-                                                                        <option>Example one</option>
-                                                                        <option>Example one</option>
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-4">
-                                                                <div class="form-group ">
-                                                                    <select class="form-control search-slt" id="exampleFormControlSelect1">
-                                                                        <option>Select Vehicle</option>
-                                                                        <option>Example one</option>
-                                                                        <option>Example one</option>
-                                                                        <option>Example one</option>
-                                                                        <option>Example one</option>
-                                                                        <option>Example one</option>
-                                                                        <option>Example one</option>
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-4">
-                                                                <div class="form-group ">
-                                                                        <select class="form-control search-slt" id="exampleFormControlSelect1">
-                                                                            <option>Select Vehicle</option>
-                                                                            <option>Example one</option>
-                                                                            <option>Example one</option>
-                                                                            <option>Example one</option>
-                                                                            <option>Example one</option>
-                                                                            <option>Example one</option>
-                                                                            <option>Example one</option>
-                                                                        </select>
-                                                                    </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-md-9">
-                                                                <div class="form-group ">
-                                                                    <button type="button" class="btn btn-warning ">Cari</button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </section>
-
-                            <div class="row">
-                              <t t-set="i" t-value="0"/>
+				<div class="oe_structure">
+					<div class="jumbotron text-center">
+						<h1>Travel Schedule</h1>
+					</div>
+					<div class="container">
+						<br/>
+						<div class="panel panel-primary o_panel s_panel">
+							<div class="panel-body table-responsive">
+								<table class="table table-striped table-hover">
+									<thead>
+										<tr>
+											<th class="col-md-2">No</th>
+											<th class="col-md-4">Asal</th>
+											<th class="col-md-5">Tujuan</th>
+											<th class="col-md-5">Tanggal</th>
+											<th class="col-md-4">Melalui</th>
+											<th class="col-md-4">Tujuan</th>
+											<th class="col-md-3"></th>
+										</tr>
+									</thead>
+									<tbody>
+										<t t-set="i" t-value="0"/>
 										<t t-foreach="schedules" t-as="schedule">
 											<t t-set="i" t-value="i+1"/>
-                                                  <div class="col-sm-6">
-                                                    <div class="card">
-                                                      <div class="card-body">
-                                                        <h5 class="card-title">Special title treatment</h5>
-                                                        <p class="card-text"><t t-esc="schedule.departure.city"/><t t-esc="schedule.destination.city"/></p>
-                                                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                                                      </div>
-                                                    </div>
-                                                  </div>
-                                        </t>
-                            </div>
-					    </div>
-					</div>
+											<tr class="clickable-row">
+												<td> <span t-esc="i"/> </td>
+												<td><t t-esc="schedule.departure.city"/></td>
+												<td><t t-esc="schedule.destination.city"/></td>
+												<td><t t-esc="schedule.departure_date"/></td>
+												<td>
+													<ul class="list-unstyled">
+														<t t-foreach="schedule.pool_list_dep" t-as="schedule_item">
+															<li><t t-esc="schedule_item.name"/> At <t t-esc="schedule_item.departure_perpool"/></li>
+														</t>
+													</ul>
+												</td>
+												<td>
+													<ul class="list-unstyled">
+														<t t-foreach="schedule.pool_list_dest" t-as="schedule_item">
+															<li><t t-esc="schedule_item.name"/> At <t t-esc="schedule_item.departure_perpool"/></li>
+														</t>
+													</ul>
+												</td>
+												<td>
+													<a t-attf-href="/travel/schedule/{{slug(schedule)}}">
+														<button class="btn btn-success">
+														Order
+														</button>
+													</a>
+												</td>
+											</tr>
+										</t>
+									</tbody>
+								</table>
+
+							</div>
+						</div>
+
+                    </div>
+                </div>
             </t>
-		</t>
+		</template>
+
 	</data>
 </odoo>

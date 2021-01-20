@@ -22,6 +22,13 @@
 			<field name="parent_id" ref="website.main_menu"/>
 			<field name="sequence" type="int">50</field>
 		</record>
+
+		<record id="menu_travel_caritiket" model="website.menu">
+			<field name="name">Cari Tiket</field>
+			<field name="url">/travel/cari_tiket</field>
+			<field name="parent_id" ref="website.main_menu"/>
+			<field name="sequence" type="int">49</field>
+		</record>
 		
     </data>
 </odoo>
