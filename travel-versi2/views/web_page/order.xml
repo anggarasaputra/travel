@@ -15,60 +15,103 @@
 								<div class="panel-heading text-center">
 									<h2 class="panel-title">Order Information</h2>
 								</div>
-								<div class="panel-body table-responsive">
-									<table class="styled-table">
-										<thead>
-											<tr>
-												<th>No Order</th>
-												<th>Invoice</th>
-												<th>Asal</th>
-												<th>Tujuan</th>
-												<th>Tanggal</th>
-												<th>Jam</th>
-												<th>Status</th>
-												<th>Kendaraan</th>
-												<th>Seat</th>
-												<th>Laporan</th>
-											</tr>
-										</thead>
-										<tbody>
-											<t t-foreach="travels" t-as="travel">
-												<tr>
-													<td>
-														<t t-esc="travel.name"/>
-													</td>
-													<td>
-														<t t-esc="'Rp{:,.2f}'.format(travel.price_travel)"/>
-													</td>
-													<td>
-														<t t-esc="travel.departure.city"/>
-													</td>
-													<td>
-														<t t-esc="travel.destination.city"/>
-													</td>
-													<td><t t-esc="travel.departure_date"/></td>
-													<td><t t-esc="travel.departure_time"/></td>
-													<td><t t-esc="travel.state"/></td>
-													<td><t t-esc="travel.schedule_id.vehicle.name"/></td>
-													<td>
-														<ul class="list-inline">
-															<t t-foreach="travel.tree_seat_number" t-as="seat">
-																<li>| Seat <t t-esc="seat.seat_list.seat_number"/></li>
-															</t>
-														</ul>
-													</td>
-													<td>
-														<a t-att-href="'/report/pdf/travel-versi2.report_template/%s/' % travel.id">
-															<button class="btn btn-info">
-																Download
-															</button>
-														</a>
-													</td>
-												</tr>
-											</t>
-										</tbody>
-									</table>
-								</div>
+<!--								<div class="panel-body table-responsive">-->
+<!--									<table class="styled-table">-->
+<!--										<thead>-->
+<!--											<tr>-->
+<!--												<th>No Order</th>-->
+<!--												<th>Invoice</th>-->
+<!--												<th>Asal</th>-->
+<!--												<th>Tujuan</th>-->
+<!--												<th>Tanggal</th>-->
+<!--												<th>Jam</th>-->
+<!--												<th>Status</th>-->
+<!--												<th>Kendaraan</th>-->
+<!--												<th>Seat</th>-->
+<!--												<th>Laporan</th>-->
+<!--											</tr>-->
+<!--										</thead>-->
+<!--										<tbody>-->
+<!--											<t t-foreach="travels" t-as="travel">-->
+<!--												<tr>-->
+<!--													<td>-->
+<!--														<t t-esc="travel.name"/>-->
+<!--													</td>-->
+<!--													<td>-->
+<!--														<t t-esc="'Rp{:,.2f}'.format(travel.price_travel)"/>-->
+<!--													</td>-->
+<!--													<td>-->
+<!--														<t t-esc="travel.departure.city"/>-->
+<!--													</td>-->
+<!--													<td>-->
+<!--														<t t-esc="travel.destination.city"/>-->
+<!--													</td>-->
+<!--													<td><t t-esc="travel.departure_date"/></td>-->
+<!--													<td><t t-esc="travel.departure_time"/></td>-->
+<!--													<td><t t-esc="travel.state"/></td>-->
+<!--													<td><t t-esc="travel.schedule_id.vehicle.name"/></td>-->
+<!--													<td>-->
+<!--														<ul class="list-inline">-->
+<!--															<t t-foreach="travel.tree_seat_number" t-as="seat">-->
+<!--																<li>| Seat <t t-esc="seat.seat_list.seat_number"/></li>-->
+<!--															</t>-->
+<!--														</ul>-->
+<!--													</td>-->
+<!--													<td>-->
+<!--														<a t-att-href="'/report/pdf/travel-versi2.report_template/%s/' % travel.id">-->
+<!--															<button class="btn btn-info">-->
+<!--																Download-->
+<!--															</button>-->
+<!--														</a>-->
+<!--													</td>-->
+<!--												</tr>-->
+<!--											</t>-->
+<!--										</tbody>-->
+<!--									</table>-->
+<!--								</div>-->
+								<div class="row">
+                            <t t-foreach="travels" t-as="travel">
+                                <div class="col-sm-6">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h5 class="card-title">
+                                                <t t-esc="travel.departure.city"/>
+                                                -
+                                                <t t-esc="travel.destination.city"/>
+                                            </h5>
+                                            <p class="card-text">Nomer Order :
+                                                <t t-esc="travel.name"/>
+                                            </p>
+											<p>Invoice :
+                                                <t t-esc="'Rp{:,.2f}'.format(travel.price_travel)"/>
+                                            </p>
+											<p>Tanggal :
+												<t t-esc="travel.departure_date"/>
+											</p>
+											<p>Jam :
+												<t t-esc="travel.departure_time"/>
+											</p>
+											<p>Status :
+												<t t-esc="travel.state"/>
+											</p>
+											<p>Kendaraan :
+												<t t-esc="travel.schedule_id.vehicle.name"/>
+											</p>
+											<p>
+													<t t-foreach="travel.tree_seat_number" t-as="seat">
+														Seat :	<t t-esc="seat.seat_list.seat_number"/>
+													</t>
+											</p>
+											<a t-att-href="'/report/pdf/travel-versi2.report_template/%s/' % travel.id">
+												<button class="btn btn-info">
+													Download
+												</button>
+											</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </t>
+                        </div>
 							</div>
 					</div>
                 </div>
