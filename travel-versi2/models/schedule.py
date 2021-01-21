@@ -11,7 +11,7 @@ class TravelSchedule(models.Model):
 	# departure_time = fields.Float('Departure Time',required=True)
 	vehicle = fields.Many2one('fleet.vehicle', required=True)
 	order_list = fields.One2many('travel.order', 'schedule_id')
-	order_tiket = fields.One2many('travel.pool.line', 'schedule')
+	order_tiket = fields.One2many('travel.pool.line', 'schedule', ondelete='cascade')
 	pool_list_dep = fields.One2many('travel.pool.line', 'schedule')
 	pool_list_dest = fields.One2many('travel.pool.line', 'schedule_dest')
 	seat_list = fields.One2many('travel.seat', 'schedule_id')

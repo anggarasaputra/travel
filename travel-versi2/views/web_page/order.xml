@@ -41,10 +41,10 @@
 														<t t-esc="'Rp{:,.2f}'.format(travel.price_travel)"/>
 													</td>
 													<td>
-														<t t-esc="travel.departure.name"/>
+														<t t-esc="travel.departure.city"/>
 													</td>
 													<td>
-														<t t-esc="travel.destination.name"/>
+														<t t-esc="travel.destination.city"/>
 													</td>
 													<td><t t-esc="travel.departure_date"/></td>
 													<td><t t-esc="travel.departure_time"/></td>

@@ -12,15 +12,16 @@ class TravelOrder(models.Model):
 
 	price_travel = fields.Float('Price',required=True)
 
-	departure = fields.Many2one('travel.pool.line',required=True)
-	destination = fields.Many2one('travel.pool.line',required=True)
+	departure = fields.Many2one('travel.pool.city',required=True)
+	destination = fields.Many2one('travel.pool.city',required=True)
 
-	departure_date = fields.Date('Departure Date',required=True,related='departure.schedule.departure_date', store=True)
-	departure_time = fields.Float('Departure Time',required=True,related='departure.departure_perpool', store=True)
+	departure_date = fields.Date('Departure Date',required=True,related='schedule_id.departure_date', store=True)
+	departure_time = fields.Float('Departure Time',required=True,related='schedule_id.order_tiket.departure_perpool', store=True)
 
-	lokasi_penjemputan = fields.Char(string="Lokasi Penjempitan")
+	lokasi_penjemputan = fields.Char(string="Lokasi Penjemputan")
 	latitut = fields.Char(string='Latitut')
 	longtitude = fields.Char(string='Longtitude')
+	pembayaran = fields.Many2one('account.journal')
 
 	state = fields.Selection([
             ('order', 'Order'),
@@ -33,8 +34,6 @@ class TravelOrder(models.Model):
 
 	@api.model
 	def create(self, vals):
-
-		vals['price_travel'] = sum(seat_line.price for seat_line in self.tree_seat_number)
 
 		if vals.get('name', _('New')) == _('New'):
 			vals['name'] = self.env['ir.sequence'].next_by_code('travel.order') or _('New')

@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+        <!-- Halaman Cari Tiket -->
+        <template id="ordertiket">
+            <t t-call="website.layout">
+                <t t-set="title">Travel</t>
+                <div class="oe_structure">
+                    <div class="container">
+                        <section class="search-banner text-white py-3 form-arka-plan" id="search-banner">
+                            <div class="container py-5 my-5">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <form method="post" action="order/" class="col-md-12">
+                                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                            <input type="hidden" name="seat" t-att-value="seats"/>
+                                            <div class="card acik-renk-form">
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="form-group ">
+                                                                <select class="form-control search-slt" name="pembayarans"
+                                                                        id="exampleFormControlSelect1">
+                                                                    <t t-foreach="pembayaran" t-as="pemb">
+                                                                        <option t-att-value="pemb.id">
+                                                                            <t t-esc="pemb.name"/>
+                                                                        </option>
+                                                                    </t>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <input class="form-control search-slt" type="input"
+                                                                   name="penjemputan"/>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-9">
+                                                            <div class="form-group ">
+                                                                <button type="submit" class="btn btn-warning">Order
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </t>
+        </template>
+
+    </data>
+</odoo>
