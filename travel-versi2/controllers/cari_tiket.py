@@ -119,7 +119,6 @@ class Caritiket(http.Controller):
             pembayaran = request.params.get('pembayarans')
             penjemputan = request.params.get('penjemputan')
             data_order = {}
-            print('hhh price', float(price))
             data_order['schedule_id'] = schedule.schedule.id
             data_order['departure'] = schedule.pool_location_from.id
             data_order['departure_date'] = schedule.schedule.departure_date
@@ -130,16 +129,12 @@ class Caritiket(http.Controller):
             data_order['price_travel']= float(price)
             data_order['state'] = 'waiting'
             travel_order = request.env['travel.order']
-            _cr = travel_order.get_cr()
-            _cr.autocommit(False)
             order = travel_order.create(data_order)
             seat_line = request.env['travel.seat.line']
-            price = 0
             for seat in seats:
                 se = int(seat)
                 data = {'order_id': order.id, 'seat_list': se}
                 seat_line.create(data)
-            _cr.commit()
             return request.render('travel-versi2.order_success', {
                 'title': 'Order Success!',
                 'message': 'Please Pay Your Invoice',
