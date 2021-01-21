@@ -109,7 +109,7 @@ class VehicleSeatLine(models.Model):
 
 class VehicleSeat(models.Model):
 	_name = 'travel.seat'
-	_sql_constraints = [('travel_seat_unique', 'UNIQUE (seat_number)', 'Seat have been created')]
+	# _sql_constraints = [('travel_seat_unique', 'UNIQUE (seat_number)', 'Seat have been created')]
 	name = fields.Char(compute="_compute_seat_name", store=False)
 	schedule_id = fields.Many2one('travel.schedule', string="Schedule", ondelete='cascade')
 	seat_line = fields.One2many('travel.seat.line', 'seat_list')
