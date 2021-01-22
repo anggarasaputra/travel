@@ -89,14 +89,13 @@ class Caritiket(http.Controller):
                     for y in all:
                         penampung.append(y.number)
                     if id_seat.hasil:
-                        print('masuk 1')
                         ambil = id_seat.hasil
                         hasil = eval(ambil)
-                        penampung.append(hasil)
+                        for h in hasil:
+                            penampung.append(h)
                         hasil_sort = sorted(penampung)
                         id_seat.write({'hasil': hasil_sort})
                     else:
-                        print('else 1')
                         id_seat.write({'hasil': penampung})
                 else:
                     hasil_tahap1 = []
@@ -115,16 +114,15 @@ class Caritiket(http.Controller):
                         if i not in hasil_marge:
                             hasil_marge.append(i)
                     if id_seat.hasil:
-                        print('masuk 2')
                         ambil = id_seat.hasil
                         hasil = eval(ambil)
-                        hasil_marge.append(hasil)
+                        for h in hasil:
+                            hasil_marge.append(h)
                         hasil_sort = sorted(hasil_marge)
                         id_seat.write({'hasil': hasil_sort})
                     else:
-                        print('else 2')
                         id_seat.write({'hasil': hasil_marge})
-            if schedule.pool_location_from.city == schedule.schedule.destination.city:
+            if schedule.pool_location.city == schedule.schedule.destination.city:
                 hasil_tahap1 = []
                 hasil_tahap2 = []
                 for x in hasil2:
@@ -141,14 +139,13 @@ class Caritiket(http.Controller):
                     if i not in hasil_marge:
                         hasil_marge.append(i)
                 if id_seat.hasil:
-                    print('masuk 3')
                     ambil = id_seat.hasil
                     hasil = eval(ambil)
-                    hasil_marge.append(hasil)
+                    for h in hasil:
+                        hasil_marge.append(h)
                     hasil_sort = sorted(hasil_marge)
                     id_seat.write({'hasil': hasil_sort})
                 else:
-                    print('else 3')
                     hasil_sorted = sorted(hasil_marge)
                     id_seat.write({'hasil': hasil_sorted})
             pembayaran = request.params.get('pembayarans')
