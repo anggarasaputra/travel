@@ -24,6 +24,7 @@
 						<group name="group_right">
 							<field name="departure_date" attrs="{'readonly': [('state','==', 'confirm')]}"/>
 							<field name="vehicle" attrs="{'readonly': [('state','==', 'confirm')]}"/>
+							<field name="fasilitas"/>
 						</group>
 					</group>
 					<notebook>

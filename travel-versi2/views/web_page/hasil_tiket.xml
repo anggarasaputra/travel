@@ -26,6 +26,9 @@
                                                             <p class="card-text form-control">Harga :
                                                                 <t t-esc="schedule.price_from_destination"/>
                                                             </p>
+                                                            <p class="card-text form-control">Fasilitas :
+                                                                <t t-esc="schedule.schedule.fasilitas"/>
+                                                            </p>
                                                             <a t-attf-href="/travel/cari_tiket/seat/{{slug(schedule)}}">
                                                                 <button class="btn btn-success">
                                                                     Order

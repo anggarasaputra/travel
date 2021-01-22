@@ -21,6 +21,7 @@ class TravelSchedule(models.Model):
 		('draft', 'Draft'),
 		('confirm', 'Confirm'),
 	], string='Status', readonly=True, default='draft')
+	fasilitas = fields.Text(string='Fasilitas')
 
 	def action_confim(self):
 		for rec in self:
