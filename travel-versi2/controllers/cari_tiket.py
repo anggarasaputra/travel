@@ -1,5 +1,6 @@
 from odoo import http
 from odoo.http import request
+from datetime import datetime
 from odoo.exceptions import ValidationError
 
 
@@ -17,12 +18,20 @@ class Caritiket(http.Controller):
             asal = request.params.get('asal')
             tujuan = request.params.get('tujuan')
             tanggal = request.params.get('tanggal')
-            scedule = request.env['travel.pool.line'].search(
-                [('schedule.departure_date', '=', tanggal), ('pool_location_from', '=', asal),
-                 ('pool_location', '=', tujuan)])
-            return request.render('travel-versi2.hasiltiket', {
-                'schedules': scedule
-            })
+            hari = datetime.now().date()
+            cek = datetime.strptime(tanggal, '%Y-%m-%d').date()
+            if hari > cek:
+                return request.render('travel-versi2.order_success', {
+                    'title': 'CEK INPUT!',
+                    'message': 'Pilih Tanggal Minimal Hari INI!!',
+                })
+            else:
+                scedule = request.env['travel.pool.line'].search(
+                    [('schedule.departure_date', '=', tanggal), ('pool_location_from', '=', asal),
+                     ('pool_location', '=', tujuan)])
+                return request.render('travel-versi2.hasiltiket', {
+                    'schedules': scedule,
+                })
 
     @http.route('/travel/cari_tiket/seat/<model("travel.pool.line"):schedule>/', auth='user', website=True)
     def web_tiketseat(self, schedule):
@@ -32,8 +41,10 @@ class Caritiket(http.Controller):
             if x.hasil:
                 c = eval(x.hasil)
                 cek = schedule.number
-                if str(cek) not in c:
+                if int(cek) in c:
                     ada = True
+                else:
+                    ada = False
             var = {
                 'id': x.id,
                 'seat_number': x.seat_number,
@@ -77,8 +88,16 @@ class Caritiket(http.Controller):
                 if int(schedule.number) == 1:
                     for y in all:
                         penampung.append(y.number)
-                    response = penampung
-                    id_seat.write({'hasil': penampung})
+                    if id_seat.hasil:
+                        print('masuk 1')
+                        ambil = id_seat.hasil
+                        hasil = eval(ambil)
+                        penampung.append(hasil)
+                        hasil_sort = sorted(penampung)
+                        id_seat.write({'hasil': hasil_sort})
+                    else:
+                        print('else 1')
+                        id_seat.write({'hasil': penampung})
                 else:
                     hasil_tahap1 = []
                     hasil_tahap2 = []
@@ -95,8 +114,16 @@ class Caritiket(http.Controller):
                     for i in marge:
                         if i not in hasil_marge:
                             hasil_marge.append(i)
-                    response = hasil_marge
-                    id_seat.write({'hasil': hasil_marge})
+                    if id_seat.hasil:
+                        print('masuk 2')
+                        ambil = id_seat.hasil
+                        hasil = eval(ambil)
+                        hasil_marge.append(hasil)
+                        hasil_sort = sorted(hasil_marge)
+                        id_seat.write({'hasil': hasil_sort})
+                    else:
+                        print('else 2')
+                        id_seat.write({'hasil': hasil_marge})
             if schedule.pool_location_from.city == schedule.schedule.destination.city:
                 hasil_tahap1 = []
                 hasil_tahap2 = []
@@ -113,9 +140,17 @@ class Caritiket(http.Controller):
                 for i in marge:
                     if i not in hasil_marge:
                         hasil_marge.append(i)
-                hasil_sorted = sorted(hasil_marge)
-                id_seat.write({'hasil': hasil_sorted})
-                response = hasil_sorted
+                if id_seat.hasil:
+                    print('masuk 3')
+                    ambil = id_seat.hasil
+                    hasil = eval(ambil)
+                    hasil_marge.append(hasil)
+                    hasil_sort = sorted(hasil_marge)
+                    id_seat.write({'hasil': hasil_sort})
+                else:
+                    print('else 3')
+                    hasil_sorted = sorted(hasil_marge)
+                    id_seat.write({'hasil': hasil_sorted})
             pembayaran = request.params.get('pembayarans')
             penjemputan = request.params.get('penjemputan')
             data_order = {}
@@ -126,7 +161,7 @@ class Caritiket(http.Controller):
             data_order['destination'] = schedule.pool_location.id
             data_order['pembayaran'] = int(pembayaran)
             data_order['lokasi_penjemputan'] = penjemputan
-            data_order['price_travel']= float(price)
+            data_order['price_travel'] = float(price)
             data_order['state'] = 'waiting'
             travel_order = request.env['travel.order']
             order = travel_order.create(data_order)
