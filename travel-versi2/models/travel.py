@@ -40,12 +40,12 @@ class TravelOrder(models.Model):
 			
 		return super(TravelOrder, self).create(vals)
 
-	@api.model
-	def write(self, vals):
-		vals['price_travel'] = sum(seat_line.price for seat_line in self.tree_seat_number)
-
-
-		return super(TravelOrder, self).write(vals)
+	# @api.model
+	# def write(self, vals):
+	# 	vals['price_travel'] = sum(seat_line.price for seat_line in self.tree_seat_number)
+	#
+	#
+	# 	return super(TravelOrder, self).write(vals)
 
 	def get_cr(self):
 		return self._cr

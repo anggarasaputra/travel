@@ -120,4 +120,7 @@ class VehicleSeat(models.Model):
 	@api.multi
 	def _compute_seat_name(self):
 		for record in self:
-			record.name = "Seat %d | Rp%.2f" % (record.seat_number, record.price)
+			hasil = 0
+			for x in record.seat_line:
+				hasil = x.order_id.price_travel
+			record.name = "Seat %d | Rp%.2f" % (record.seat_number, hasil)
