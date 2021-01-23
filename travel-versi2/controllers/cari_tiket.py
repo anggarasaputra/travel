@@ -160,7 +160,7 @@ class Caritiket(http.Controller):
             data_order['lokasi_penjemputan'] = penjemputan
             data_order['price_travel'] = float(price)
             data_order['state'] = 'waiting'
-            travel_order = request.env['travel.order']
+            travel_order = request.env['travel.order'].sudo()
             order = travel_order.create(data_order)
             seat_line = request.env['travel.seat.line']
             for seat in seats:
@@ -175,7 +175,7 @@ class Caritiket(http.Controller):
     @http.route('/travel/cari_tiket/seat/<model("travel.pool.line"):schedule>/pay', type='http', auth="user",
                 methods=['POST'], website=True)
     def web_pay_order(self, schedule, **kw):
-        pembayaran = request.env['account.journal'].search(['|', ('type', '=', 'bank'), ('type', '=', 'cash')])
+        pembayaran = request.env['account.journal'].sudo().search(['|', ('type', '=', 'bank'), ('type', '=', 'cash')])
         seats = request.httprequest.form.getlist('seats[]')
         return request.render('travel-versi2.ordertiket', {
             'schedules': schedule,
