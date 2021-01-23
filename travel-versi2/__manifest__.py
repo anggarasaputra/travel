@@ -3,7 +3,7 @@
     'description': 'Travel',
     'author': 'Team A1',
     'summary': "Manage travel vehicles, pool, and payment order",
-    'depends': ['base', 'website', 'fleet', 'website_form'],
+    'depends': ['base', 'website', 'fleet', 'website_form','account'],
     'application': True,
     'data': ['views/odoo_page/travel_view.xml',
              'views/odoo_page/travel_menu.xml',

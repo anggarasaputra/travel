@@ -6,9 +6,11 @@
             <t t-call="website.layout">
                 <t t-set="title">Travel</t>
                 <div class="oe_structure">
+                    <div class="jumbotron text-center">
+                        <h1>HASIL PENCARIAN</h1>
+                    </div>
                     <div class="container">
                         <section class="search-banner text-white py-3 form-arka-plan" id="search-banner">
-                            <div class="container py-5 my-5">
                                 <div class="row">
                                     <div class="col-md-12">
                                             <t t-foreach="schedules" t-as="schedule">
@@ -30,9 +32,9 @@
                                                                 <t t-esc="schedule.schedule.fasilitas"/>
                                                             </p>
                                                             <a t-attf-href="/travel/cari_tiket/seat/{{slug(schedule)}}">
-                                                                <button class="btn btn-success">
-                                                                    Order
-                                                                </button>
+                                                                <div class="form-group ">
+                                                                    <button type="submit" class="btn btn-warning form-control">Cek Seat</button>
+                                                                </div>
                                                             </a>
                                                         </div>
                                                     </div>
@@ -40,10 +42,7 @@
                                             </t>
                                     </div>
                                 </div>
-                            </div>
                         </section>
-
-
                     </div>
                 </div>
             </t>

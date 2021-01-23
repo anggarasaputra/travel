@@ -49,21 +49,11 @@ p
 }
 .jumbotron
 {
-	color: #ffffff;
-	background: rgb(59,103,158); /* Old browsers */
-	background: -moz-linear-gradient(45deg, rgba(59,103,158,1) 0%, rgba(43,136,217,1) 45%, rgba(32,124,202,1) 55%, rgba(125,185,232,1) 100%); /* FF3.6-15 */
-	background: -webkit-linear-gradient(45deg, rgba(59,103,158,1) 0%,rgba(43,136,217,1) 45%,rgba(32,124,202,1) 55%,rgba(125,185,232,1) 100%); /* Chrome10-25,Safari5.1-6 */
-	background: linear-gradient(45deg, rgba(59,103,158,1) 0%,rgba(43,136,217,1) 45%,rgba(32,124,202,1) 55%,rgba(125,185,232,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3b679e', endColorstr='#7db9e8',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */	box-shadow: 0 1px 2px 1px rgba(166,166,166,.2);
+
 }
 .navbar-default
 {
-	color: #333;
-	background: rgb(125,174,229); /* Old browsers */
-	background: -moz-linear-gradient(45deg, rgba(125,174,229,1) 0%, rgba(154,199,236,1) 50%, rgba(141,192,237,1) 51%, rgba(194,222,244,1) 100%); /* FF3.6-15 */
-	background: -webkit-linear-gradient(45deg, rgba(125,174,229,1) 0%,rgba(154,199,236,1) 50%,rgba(141,192,237,1) 51%,rgba(194,222,244,1) 100%); /* Chrome10-25,Safari5.1-6 */
-	background: linear-gradient(45deg, rgba(125,174,229,1) 0%,rgba(154,199,236,1) 50%,rgba(141,192,237,1) 51%,rgba(194,222,244,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7daee5', endColorstr='#c2def4',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+
 }
 .navbar-nav  li a:hover 
 {

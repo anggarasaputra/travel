@@ -7,11 +7,10 @@
                 <t t-set="title">Travel</t>
                 <div class="oe_structure">
                     <div class="jumbotron text-center">
-                        <h1>TIKET TRAVEL</h1>
+                        <h1>NAFATRANS TRAVEL</h1>
                     </div>
                     <div class="container">
                         <section class="search-banner text-white py-3 form-arka-plan" id="search-banner">
-                            <div class="container py-5 my-5">
                                 <div class="row">
                                     <div class="col-md-12">
                                         <form method="post" action="/travel/cari_tiket/cari" class="col-md-12">
@@ -61,7 +60,6 @@
 
                                     </div>
                                 </div>
-                            </div>
                         </section>
 
                         <div class="row">

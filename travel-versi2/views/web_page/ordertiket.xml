@@ -6,6 +6,9 @@
             <t t-call="website.layout">
                 <t t-set="title">Travel</t>
                 <div class="oe_structure">
+                    <div class="jumbotron text-center">
+                        <h1>SELESAIKAN PESANAN</h1>
+                    </div>
                     <div class="container">
                         <section class="search-banner text-white py-3 form-arka-plan" id="search-banner">
                             <div class="container py-5 my-5">
@@ -17,8 +20,9 @@
                                             <div class="card acik-renk-form">
                                                 <div class="card-body">
                                                     <div class="row">
-                                                        <div class="col-md-6">
+                                                        <div class="col-md-12">
                                                             <div class="form-group ">
+                                                                <h5 class="card-title" style="background-color: white; color: black;">Pilih Metode Pembayaran</h5>
                                                                 <select class="form-control search-slt" name="pembayarans"
                                                                         id="exampleFormControlSelect1">
                                                                     <t t-foreach="pembayaran" t-as="pemb">
@@ -28,16 +32,18 @@
                                                                     </t>
                                                                 </select>
                                                             </div>
-                                                        </div>
-                                                        <div class="col-md-6">
+                                                            <div class="form-group ">
+                                                                <h5 class="card-title" style="background-color: white; color: black;">Masukkan Lokasi Penjemputan</h5>
                                                             <input class="form-control search-slt" type="input"
                                                                    name="penjemputan"/>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                     <div class="row">
-                                                        <div class="col-md-9">
+                                                        <div class="col-md-12">
                                                             <div class="form-group ">
-                                                                <button type="submit" class="btn btn-warning">Order
+                                                                <br></br>
+                                                                <button type="submit" class="btn btn-warning form-control">Order
                                                                 </button>
                                                             </div>
                                                         </div>
@@ -53,6 +59,5 @@
                 </div>
             </t>
         </template>
-
     </data>
 </odoo>
