@@ -51,7 +51,7 @@ class TravelOrder(models.Model):
 		return self._cr
 
 	def confirm(self):
-		self.write({'state' : 'waiting'})
+		self.write({'state': 'waiting'})
 
 	def validate(self):
 		invoice = self.env['account.invoice']
@@ -75,10 +75,10 @@ class TravelOrder(models.Model):
 		}
 		validate_invoice = invoice.create(heder_inv)
 		validate_invoice.action_invoice_open()
-		self.write({'state' : 'travel'})
+		self.write({'state': 'travel'})
 
 	def cancel(self):
-		self.write({'state' : 'order'})
+		self.write({'state': 'order'})
 
 
 	@api.onchange('departure')

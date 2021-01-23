@@ -11,27 +11,13 @@
 		</template>
 	
 
-<!--		<template id="header" inherit_id="website.layout" name="Header Travel">-->
-<!--			<xpath expr="//header//ul[@id='top_menu']/li" position="before">-->
-<!--				<li>-->
-<!--					<a href="/travel/orders">-->
-<!--						<span data-oe-model="website.menu" data-oe-id="5" data-oe-field="name" data-oe-type="char" data-oe-expression="submenu.name">Your Travel Order</span>-->
-<!--					</a>-->
-<!--				</li>-->
-<!--				<li>-->
-<!--					<a href="/travel/schedules">-->
-<!--						<span data-oe-model="website.menu" data-oe-id="5" data-oe-field="name" data-oe-type="char" data-oe-expression="submenu.name">Travel Schedules</span>-->
-<!--					</a>-->
-<!--				</li>-->
-<!--				<li>-->
-<!--					<a href="/travel/pools">-->
-<!--						<span data-oe-model="website.menu" data-oe-id="5" data-oe-field="name" data-oe-type="char" data-oe-expression="submenu.name">Travel Pools</span>-->
-<!--					</a>-->
-<!--				</li>-->
-<!--			</xpath>-->
-<!--		</template>-->
-		
-		<!-- Footer -->
+			<template id="assets_frontend" inherit_id="website.assets_frontend">
+				<xpath expr="." position="inside">
+					<link href="/travel-versi2/static/src/css/style2.css" rel="stylesheet" type="text/css"/>
+				</xpath>
+			</template>
+
+
 		<template id="website.layout_footer_copyright" inherit_id="website.layout" name="Footer Copyright">
 			<xpath expr="//footer" position="inside">
 				<div class="container mt16 mb8">

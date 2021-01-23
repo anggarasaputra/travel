@@ -13,31 +13,37 @@
                                 <form method="post" action="pay/">
                                     <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
                                         <div class="form-inline center-block">
+
                                                 <t t-foreach="seat_list" t-as="seat_item">
                                                     <div class="col-md-6">
                                                                 <t t-if="seat_item['ada'] == false">
                                                                     <div class="card">
+                                                                         <div class="btn-group" data-toggle="buttons">
                                                                         <div class="card-body">
                                                                             <label class="form-check-label" for="inlineCheckbox3">
-                                                                            <input type="checkbox" name="seats[]" t-att-value="seat_item['id']" class="form-check-input" style="width:15vw;height:15vh;">
+                                                                            <input type="checkbox" name="seats[]" t-att-value="seat_item['id']" class="form-check-input">
                                                                             </input>
                                                                             <h5 style="background-color: white; color: black;"><t t-esc="seat_item['seat_number']"/></h5></label>
                                                                         </div>
                                                                     </div>
+                                                                    </div>
                                                                 </t>
 
                                                                 <t t-if="seat_item['ada'] == true">
-                                                                     <div class="card" style="background-color:##7C7BAD;">
+                                                                     <div class="card" style="background-color:#7C7BAD;">
+                                                                         <div class="btn-group" data-toggle="buttons">
                                                                         <div class="card-body">
                                                                         <label class="form-check-label" for="inlineCheckbox3">
-                                                                        <input type="checkbox" name="seats[]" t-att-value="seat_item['id']" disabled="disabled" class="form-check-input" style="width:15vw;height:15vh;">
+                                                                        <input type="checkbox" name="seats[]" t-att-value="seat_item['id']" disabled="disabled" class="form-check-input">
                                                                         </input>
                                                                         <h5 style="background-color: white; color: black;"><t t-esc="seat_item['seat_number']"/> ( Sold )</h5></label>
                                                                         </div>
                                                                      </div>
+                                                                     </div>
                                                                 </t>
                                                     </div>
                                                 </t>
+
                                         </div>
                                     <div class="center-block text-center">
                                         <br/>
