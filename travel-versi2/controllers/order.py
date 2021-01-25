@@ -28,8 +28,8 @@ class Order(http.Controller) :
 		partner = request.env['res.users'].sudo().browse(uid).partner_id
 		travels = request.env['travel.order'].sudo().search([('partner_id','=', partner.id)]) #search(['create_uid', '=', uid])
 		return request.render('travel-versi2.order', {
-			'partner' : partner,
-			'travels' : travels
+			'partner': partner,
+			'travels': travels
 		})
 
 #
