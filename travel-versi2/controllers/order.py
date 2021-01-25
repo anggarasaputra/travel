@@ -25,8 +25,8 @@ class Order(http.Controller) :
 	def web_orders(self, **kw) :
 		uid = request.uid
 
-		partner = request.env['res.users'].browse(uid).partner_id
-		travels = request.env['travel.order'].search([('partner_id','=', partner.id)]) #search(['create_uid', '=', uid])
+		partner = request.env['res.users'].sudo().browse(uid).partner_id
+		travels = request.env['travel.order'].sudo().search([('partner_id','=', partner.id)]) #search(['create_uid', '=', uid])
 		return request.render('travel-versi2.order', {
 			'partner' : partner,
 			'travels' : travels
