@@ -51,9 +51,12 @@ class Caritiket(http.Controller):
                 'ada': ada
             }
             seat.append(var)
+
+        pembayaran = request.env['account.journal'].sudo().search(['|', ('type', '=', 'bank'), ('type', '=', 'cash')])
         return request.render('travel-versi2.tiketseat', {
             'schedules': schedule,
             'seat_list': seat,
+            'pembayaran': pembayaran,
         })
 
     @http.route('/travel/cari_tiket/seat/<model("travel.pool.line"):schedule>/pay/order/', type='http', auth="user",
