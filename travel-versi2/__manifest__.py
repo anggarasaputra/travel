@@ -11,6 +11,8 @@
              'views/odoo_page/schedule_view.xml',
              'views/odoo_page/config_setting_travel.xml',
              'views/odoo_page/jalur_view.xml',
+             'views/odoo_page/views.xml',
+             'views/odoo_page/account_journal.xml',
              'views/template/web_template.xml',
              'views/web_page/404.xml',
              'views/web_page/login.xml',
