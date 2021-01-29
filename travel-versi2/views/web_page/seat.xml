@@ -28,7 +28,7 @@
                                                                                         </label>
                                                                                     </t>
                                                                                     <t t-if="seat_item['ada'] == true">
-                                                                                        <label class="checkbox-inline form-control">
+                                                                                        <label class="checkbox-inline form-control" style="background-color:#5f5e97">
                                                                                             <input type="checkbox" name="seats[]"
                                                                                                    t-att-value="seat_item['id']" disabled="disabled">
                                                                                             </input>
