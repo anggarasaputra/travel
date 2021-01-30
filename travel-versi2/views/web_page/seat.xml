@@ -7,15 +7,26 @@
                 <t t-set="title">Travel</t>
                 <div class="oe_structure">
                     <div class="container">
+                         <div class="card">
+                                            <div class="card-body" align="center">
+                                                <div class="row center-block" align="center">
+                                                    <div class="col-md-12" align="center">
+                                                        <div class="form-group" align="center">
+                                                           <img t-att-src="image_data_uri(schedules.schedule.sudo().vehicle.maps_seat)" class="img-responsive" style="display: block; max-width: 100%; height: auto;" align="center"/>
+                                                        </div>
+                                                        </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br></br>
                       <section class="search-banner text-white py-3 form-arka-plan" id="search-banner">
-                            <div class="container py-5 my-5">
-                                <img t-att-src="image_data_uri(schedules.schedule.sudo().vehicle.maps_seat)" style="width:50px; height:50px;"/>
                                         <form method="post" action="order/" class="col-md-12">
                                             <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
                                               <div class="card acik-renk-form">
                                                         <div class="card-body">
                                                             <div class="row center-block">
                                                                 <div class="col-md-12">
+                                                                    <div class="form-group ">
                                                                         <h5 class="card-title" style="background-color: white; color: black;">Pilih Tempat Duduk</h5>
                                                                             <div class="form-inline center-block">
                                                                                 <t t-foreach="seat_list" t-as="seat_item">
@@ -37,47 +48,34 @@
                                                                                     </t>
                                                                                 </t>
                                                                             </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <br></br>
-                                                    <div class="card acik-renk-form">
-                                                        <div class="card-body">
-                                                            <div class="row">
-                                                                <div class="col-md-12">
-                                                                    <div class="form-group ">
+                                                                        </div>
+                                                                        <div class="form-group ">
                                                                         <h5 class="card-title" style="background-color: white; color: black;">Pilih Metode Pembayaran</h5>
-                                                                        <select class="form-control search-slt" name="pembayarans"
-                                                                                id="exampleFormControlSelect1">
-                                                                            <t t-foreach="pembayaran" t-as="pemb">
-                                                                                <option t-att-value="pemb.id">
-                                                                                    <t t-esc="pemb.name"/>
-                                                                                </option>
-                                                                            </t>
-                                                                        </select>
-                                                                    </div>
-                                                                    <div class="form-group ">
-                                                                        <h5 class="card-title" style="background-color: white; color: black;">Masukkan Lokasi Penjemputan</h5>
-                                                                    <input class="form-control search-slt" type="input"
-                                                                           name="penjemputan"/>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="col-md-12">
-                                                                    <div class="form-group ">
-                                                                        <br></br>
-                                                                        <button type="submit" class="btn btn-warning form-control">Order
-                                                                        </button>
-                                                                    </div>
+                                                                            <select class="form-control search-slt" name="pembayarans"
+                                                                                    id="exampleFormControlSelect1">
+                                                                                <t t-foreach="pembayaran" t-as="pemb">
+                                                                                    <option t-att-value="pemb.id">
+                                                                                        <t t-esc="pemb.name"/>
+                                                                                    </option>
+                                                                                </t>
+                                                                            </select>
+                                                                        </div>
+                                                                        <div class="form-group ">
+                                                                                <h5 class="card-title" style="background-color: white; color: black;">Masukkan Lokasi Penjemputan</h5>
+                                                                                <input class="form-control search-slt" type="input" name="penjemputan"/>
+                                                                        </div>
+
+                                                                        <div class="form-group ">
+                                                                            <br></br>
+                                                                            <button type="submit" class="btn btn-warning form-control">Order
+                                                                            </button>
+                                                                        </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-
                                                 </form>
-                                        </div>
+
                               </section>
 
                             </div>
