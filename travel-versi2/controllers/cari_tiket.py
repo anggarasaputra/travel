@@ -67,11 +67,14 @@ class Caritiket(http.Controller):
         # seats = eval(seat)
         cek = False
         price = 0
+        print('ini seat',seats)
+
         for seat in seats:
+            print('masuk brapa kali',seat)
             cek = True
             se = int(seat)
             price += schedule.price_from_destination
-        if cek:
+            # if cek:
             hasil1 = request.env['travel.pool.line'].search(
                 [('schedule.name', '=', schedule.schedule.name),
                  ('pool_location_from.city', '=', schedule.pool_location_from.city)])
@@ -79,13 +82,14 @@ class Caritiket(http.Controller):
                 [('schedule.name', '=', schedule.schedule.name),
                  ('pool_location.city', '=', schedule.pool_location.city)])
             all = request.env['travel.pool.line'].search([('schedule.name', '=', schedule.schedule.name)])
-            id_schedule = request.env['travel.schedule'].search([('name', '=', schedule.schedule.name)], limit=1)
+            id_schedule = request.env['travel.schedule'].search([('name', '=', schedule.schedule.name)])
             hasil_terbalik = request.env['travel.pool.line'].search(
                 [('schedule.name', '=', schedule.schedule.name),
                  ('pool_location_from.city', '=', schedule.pool_location_from.city)],
                 order="number desc")
             id_seat = request.env['travel.seat'].search(
-                [('schedule_id', '=', id_schedule.id), ('id', '=', int(se))], limit=1)
+                [('schedule_id', '=', id_schedule.id), ('id', '=', int(se))])
+            print('id seat', id_seat)
             penampung = []
             if schedule.pool_location_from.city == schedule.schedule.departure.city:
                 if int(schedule.number) == 1:
@@ -151,29 +155,29 @@ class Caritiket(http.Controller):
                 else:
                     hasil_sorted = sorted(hasil_marge)
                     id_seat.write({'hasil': hasil_sorted})
-            pembayaran = request.params.get('pembayarans')
-            penjemputan = request.params.get('penjemputan')
-            data_order = {}
-            data_order['schedule_id'] = schedule.schedule.id
-            data_order['departure'] = schedule.pool_location_from.id
-            data_order['departure_date'] = schedule.schedule.departure_date
-            data_order['departure_time'] = schedule.departure_perpool
-            data_order['destination'] = schedule.pool_location.id
-            data_order['pembayaran'] = int(pembayaran)
-            data_order['lokasi_penjemputan'] = penjemputan
-            data_order['price_travel'] = float(price)
-            data_order['state'] = 'waiting'
-            travel_order = request.env['travel.order'].sudo()
-            order = travel_order.create(data_order)
-            seat_line = request.env['travel.seat.line']
-            for seat in seats:
-                se = int(seat)
-                data = {'order_id': order.id, 'seat_list': se}
-                seat_line.create(data)
-            return request.render('travel-versi2.order_success', {
-                'title': 'Order Success!',
-                'message': 'Please Pay Your Invoice',
-            })
+        pembayaran = request.params.get('pembayarans')
+        penjemputan = request.params.get('penjemputan')
+        data_order = {}
+        data_order['schedule_id'] = schedule.schedule.id
+        data_order['departure'] = schedule.pool_location_from.id
+        data_order['departure_date'] = schedule.schedule.departure_date
+        data_order['departure_time'] = schedule.departure_perpool
+        data_order['destination'] = schedule.pool_location.id
+        data_order['pembayaran'] = int(pembayaran)
+        data_order['lokasi_penjemputan'] = penjemputan
+        data_order['price_travel'] = float(price)
+        data_order['state'] = 'waiting'
+        travel_order = request.env['travel.order'].sudo()
+        order = travel_order.create(data_order)
+        seat_line = request.env['travel.seat.line']
+        for seat in seats:
+            se = int(seat)
+            data = {'order_id': order.id, 'seat_list': se}
+            seat_line.create(data)
+        return request.render('travel-versi2.order_success', {
+            'title': 'Order Success!',
+            'message': 'Please Pay Your Invoice',
+        })
 
     # @http.route('/travel/cari_tiket/seat/<model("travel.pool.line"):schedule>/pay', type='http', auth="user",
     #             methods=['POST'], website=True)
@@ -185,19 +189,3 @@ class Caritiket(http.Controller):
     #         'pembayaran': pembayaran,
     #         'seats': seats,
     #     })
-
-    # import requests
-    #
-    # newHeaders = {'Content-type': 'application/json', 'Accept': 'text/plain'}
-    #
-    # response = requests.post ('https://httpbin.org/post',
-    #                           data={'id': 1, 'name': 'Jessa'},
-    #                           headers=newHeaders)
-    #
-    # print ("Status code: ", response.status_code)
-    #
-    # response_Json = response.json ()
-    # print ("Printing Post JSON data")
-    # print (response_Json['data'])
-    #
-    # print ("Content-Type is ", response_Json['headers']['Content-Type'])
