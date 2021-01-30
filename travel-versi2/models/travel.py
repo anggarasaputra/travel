@@ -26,7 +26,8 @@ class TravelOrder(models.Model):
 	state = fields.Selection([
             ('order', 'Order'),
             ('waiting', 'Waiting Payment'),
-            ('travel', 'Travel Order')
+            ('travel', 'Travel Order'),
+		('cancel','Cancel')
             ],default='order')
 
 	tree_seat_number = fields.One2many('travel.seat.line', 'order_id')
@@ -94,3 +95,15 @@ class TravelOrder(models.Model):
 		res = {}
 		res['domain'] = {'departure': ['|',('schedule', '=', self.destination.schedule.id),('pool_location', '!=', self.destination.pool_location.id),('pool_location.city_ids','!=',self.destination.pool_location.city_ids.id)]}
 		return res
+
+	def time_book(self):
+		for x in self:
+			time_book = x.env['ir.config_parameter'].sudo().get_param('travel-versi2.time_book')
+			cek = datetime.now() - x.create_date
+			hasil = divmod(cek.seconds, 60)
+			menit = hasil[0]
+			if int(menit) > int(time_book):
+				x.state = 'cancel'
+				print('lebih')
+			else:
+				print('kurang')
