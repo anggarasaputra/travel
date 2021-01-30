@@ -9,6 +9,7 @@
                     <div class="container">
                       <section class="search-banner text-white py-3 form-arka-plan" id="search-banner">
                             <div class="container py-5 my-5">
+                                <img t-att-src="image_data_uri(schedules.schedule.sudo().vehicle.maps_seat)" style="width:50px; height:50px;"/>
                                         <form method="post" action="order/" class="col-md-12">
                                             <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
                                               <div class="card acik-renk-form">
