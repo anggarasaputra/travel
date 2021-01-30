@@ -13,6 +13,7 @@
                         <section class="search-banner text-white py-3 form-arka-plan" id="search-banner">
                                 <div class="row">
                                     <div class="col-md-12">
+                                         <div class="form-inline center-block">
                                             <t t-foreach="schedules" t-as="schedule">
                                                 <div class="col-sm-6 ">
                                                     <div class="card ">
@@ -40,6 +41,7 @@
                                                     </div>
                                                 </div>
                                             </t>
+                                        </div>
                                     </div>
                                 </div>
                         </section>

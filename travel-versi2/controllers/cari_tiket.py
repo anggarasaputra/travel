@@ -59,12 +59,12 @@ class Caritiket(http.Controller):
             'pembayaran': pembayaran,
         })
 
-    @http.route('/travel/cari_tiket/seat/<model("travel.pool.line"):schedule>/pay/order/', type='http', auth="user",
+    @http.route('/travel/cari_tiket/seat/<model("travel.pool.line"):schedule>/order', type='http', auth="user",
                 methods=['POST'], website=True)
     def web_tiket_order(self, schedule, **kw):
-        # seats = request.httprequest.form.getlist('seats[]')
-        seat = request.params.get('seat')
-        seats = eval(seat)
+        # seat = request.params.get('seat')
+        seats = request.httprequest.form.getlist('seats[]')
+        # seats = eval(seat)
         cek = False
         price = 0
         for seat in seats:
@@ -175,13 +175,13 @@ class Caritiket(http.Controller):
                 'message': 'Please Pay Your Invoice',
             })
 
-    @http.route('/travel/cari_tiket/seat/<model("travel.pool.line"):schedule>/pay', type='http', auth="user",
-                methods=['POST'], website=True)
-    def web_pay_order(self, schedule, **kw):
-        pembayaran = request.env['account.journal'].sudo().search(['|', ('type', '=', 'bank'), ('type', '=', 'cash')])
-        seats = request.httprequest.form.getlist('seats[]')
-        return request.render('travel-versi2.ordertiket', {
-            'schedules': schedule,
-            'pembayaran': pembayaran,
-            'seats': seats,
-        })
+    # @http.route('/travel/cari_tiket/seat/<model("travel.pool.line"):schedule>/pay', type='http', auth="user",
+    #             methods=['POST'], website=True)
+    # def web_pay_order(self, schedule, **kw):
+    #     pembayaran = request.env['account.journal'].sudo().search(['|', ('type', '=', 'bank'), ('type', '=', 'cash')])
+    #     seats = request.httprequest.form.getlist('seats[]')
+    #     return request.render('travel-versi2.ordertiket', {
+    #         'schedules': schedule,
+    #         'pembayaran': pembayaran,
+    #         'seats': seats,
+    #     })
