@@ -1,0 +1,15 @@
+{
+    'name': 'Setting Travel',
+    'version': '12.0.1.0.0',
+    'description': 'Setting Travel',
+    'summary': 'Setting Travel',
+    'author': 'Team A1',
+    'license': 'LGPL-3',
+    'category': 'Extra Tools',
+    'depends': [],
+    'data': ['views/sr_inherit_users.xml'],
+    'demo': [],
+    'auto_install': False,
+    'application': True,
+    'installable': True,
+}

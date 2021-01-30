@@ -1,10 +1,8 @@
 from odoo import fields, models, osv
 
 
-class res_users(models.Model):
+class res_usersinherit(models.Model):
     _inherit = 'res.users'
-#     _columns = {
-#             'allow_payment_cash': fields.boolean("allow payment cash", default=True),
-#       }
-# res_users()
+
+    # allow_payment_cash = fields.Boolean("allow payment cash", default=True)
 

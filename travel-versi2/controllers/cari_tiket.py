@@ -51,8 +51,12 @@ class Caritiket(http.Controller):
                 'ada': ada
             }
             seat.append(var)
-
-        pembayaran = request.env['account.journal'].sudo().search(['|', ('type', '=', 'bank'), ('type', '=', 'cash')])
+        uid = request.uid
+        allow_payment_cash = request.env['res.users'].browse(uid).allow_payment_cash
+        if allow_payment_cash == True:
+            pembayaran = request.env['account.journal'].sudo().search(['|', ('type', '=', 'bank'), ('type', '=', 'cash')])
+        else:
+            pembayaran = request.env['account.journal'].sudo().search([('type', '=', 'bank')])
         return request.render('travel-versi2.tiketseat', {
             'schedules': schedule,
             'seat_list': seat,
@@ -70,7 +74,6 @@ class Caritiket(http.Controller):
         print('ini seat',seats)
 
         for seat in seats:
-            print('masuk brapa kali',seat)
             cek = True
             se = int(seat)
             price += schedule.price_from_destination
