@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="form_fleet_vehiclee" model="ir.ui.view">
+        <field name="name">fleet.vehicle.formm</field>
+        <field name="model">fleet.vehicle</field>
+        <field name="inherit_id" ref="fleet.fleet_vehicle_view_form"/>
+        <field name="arch" type="xml">
+            <field name="model_year" position="after">
+                <field name="maps_seat" widget="image" class="oe_avatar"/>
+<!--                <field name="maps_seat"/>-->
+            </field>
+        </field>
+    </record>
+</odoo>

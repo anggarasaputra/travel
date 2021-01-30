@@ -5,7 +5,7 @@ from datetime import datetime
 class TravelOrder(models.Model):
 	_name = 'travel.order'
 
-	partner_id = fields.Many2one('res.partner', default=lambda self: self.env['res.users'].browse(self.env.uid).partner_id)
+	partner_id = fields.Many2one('res.users', 'Current User', default=lambda self: self.env.user)
 	schedule_id = fields.Many2one('travel.schedule')
 
 	isPay = fields.Boolean(default=False)
