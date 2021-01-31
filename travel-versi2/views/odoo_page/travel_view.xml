@@ -8,10 +8,11 @@
 				<header>
 					<button type="object" name="confirm" string="Confirm Order"
 					attrs="{'invisible': [('state','!=','order')]}"/>
-					<button type="object" name="cancel" string="Cancel"/>
+<!--					<button type="object" name="cancel" string="Cancel"/>-->
 					<button type="object" groups="base.group_system" name="validate" string="Validate"
 					attrs="{'invisible': [('state','!=','waiting')]}"/>
 					<field name="state" widget="statusbar"/>
+					<button type="object" name="time_book" string="Time Book" />
 				</header>
 				<sheet>
 					<group name="group_top">
