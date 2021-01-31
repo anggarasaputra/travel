@@ -33,6 +33,26 @@ class Caritiket(http.Controller):
                     'schedules': scedule,
                 })
 
+    @http.route ('/travel/respons', auth='public', methods=['POST'],csrf=False,website=True)
+    def respons_ipay88(self, **kwargs):
+        if request.httprequest.method == 'POST':
+            MerchantCode = request.params.get ('MerchantCode')
+            PaymentId = request.params.get ('PaymentId')
+            RefNo = request.params.get ('RefNo')
+            Amount = request.params.get ('Amount')
+            eCurrency = request.params.get ('Currency')
+            Remark = request.params.get ('Remark')
+            TransId = request.params.get ('TransId')
+            AuthCode = request.params.get ('AuthCode')
+            eStatus = request.params.get ('Status')
+            ErrDesc = request.params.get ('ErrDesc')
+            Signature = request.params.get ('Signature')
+
+            print ('ini merchat', MerchantCode)
+            print ('ini payment', PaymentId)
+            print ('ini Amount', Amount)
+
+
     @http.route('/travel/cari_tiket/seat/<model("travel.pool.line"):schedule>/', auth='user', website=True)
     def web_tiketseat(self, schedule):
         seat = []
