@@ -35,52 +35,56 @@ class Caritiket(http.Controller):
                     'schedules': scedule,
                 })
 
-    @http.route ('/travel/respons', auth='public', methods=['POST'],csrf=False,website=True)
+    @http.route ('/travel/respons',methods=['POST'],csrf=False,website=True)
     def respons_ipay88(self, **kwargs):
-        if request.httprequest.method == 'POST':
-            MerchantCode = request.params.get ('MerchantCode')
-            PaymentId = request.params.get ('PaymentId')
-            RefNo = request.params.get ('RefNo')
-            Amount = request.params.get ('Amount')
-            eCurrency = request.params.get ('Currency')
-            Remark = request.params.get ('Remark')
-            TransId = request.params.get ('TransId')
-            AuthCode = request.params.get ('AuthCode')
-            eStatus = request.params.get ('Status')
-            ErrDesc = request.params.get ('ErrDesc')
-            Signature = request.params.get ('Signature')
+        MerchantCode = request.params.get('MerchantCode')
+        PaymentId = request.params.get('PaymentId')
+        RefNo = request.params.get('RefNo')
+        Amount = request.params.get('Amount')
+        eCurrency = request.params.get('Currency')
+        Remark = request.params.get('Remark')
+        TransId = request.params.get('TransId')
+        AuthCode = request.params.get('AuthCode')
+        eStatus = request.params.get('Status')
+        ErrDesc = request.params.get('ErrDesc')
+        Signature = request.params.get('Signature')
 
-            if eStatus == '1':
-                order_travel = request.env['travel.order'].search (
-                    [('name', '=', RefNo), ('name', '=', Amount), ('name', '=', TransId)])
-                order_travel.id.sudo ().validate ()
+        if eStatus == '1':
+            order_travel = request.env['travel.order'].sudo().search (
+                [('name', '=', RefNo),('state','=','waiting')],limit=1)
+            order_travel.validate()
+        else:
+            return print('cancel')
 
-    @http.route ('/travel/backend', auth='public', methods=['POST'],csrf=False,website=True)
-    def respons_ipay88(self, **kwargs):
-        if request.httprequest.method == 'POST':
-            MerchantCode = request.params.get ('MerchantCode')
-            PaymentId = request.params.get ('PaymentId')
-            RefNo = request.params.get ('RefNo')
-            Amount = request.params.get ('Amount')
-            eCurrency = request.params.get ('Currency')
-            Remark = request.params.get ('Remark')
-            TransId = request.params.get ('TransId')
-            AuthCode = request.params.get ('AuthCode')
-            eStatus = request.params.get ('Status')
-            ErrDesc = request.params.get ('ErrDesc')
-            Signature = request.params.get ('Signature')
+    @http.route ('/travel/backend', methods=['POST'],csrf=False,website=True)
+    def respons_ipay88_1(self, **kwargs):
+        MerchantCode = request.params.get('MerchantCode')
+        PaymentId = request.params.get('PaymentId')
+        RefNo = request.params.get('RefNo')
+        Amount = request.params.get('Amount')
+        eCurrency = request.params.get('Currency')
+        Remark = request.params.get('Remark')
+        TransId = request.params.get('TransId')
+        AuthCode = request.params.get('AuthCode')
+        eStatus = request.params.get('Status')
+        ErrDesc = request.params.get('ErrDesc')
+        Signature = request.params.get('Signature')
 
-            if eStatus == '1':
-                order_travel = request.env['travel.order'].search (
-                    [('name', '=', RefNo), ('name', '=', Amount), ('name', '=', TransId)])
-                for x in order_travel:
-                    if x.state == 'travel':
-                        return print ("cancel")
-                    elif x.state == 'waiting':
-                        x.id.sudo ().validate ()
-                        return print ('RECEIVEOK')
-                    else:
-                        return print ('cancel')
+        if eStatus == '1':
+            order_travel = request.env['travel.order'].sudo ().search (
+                [('name', '=', RefNo), ('state', '=', 'waiting')], limit=1)
+            order_travel.validate ()
+        else:
+            return print('cancel')
+            # for x in order_travel:
+            #     if x.state == 'travel':
+            #         return print ("cancel")
+            #     elif x.state == 'waiting':
+            #         x.id.sudo ().validate ()
+            #         return print ('RECEIVEOK')
+            #     else:
+            #         return print ('cancel')
+
 
     @http.route('/travel/cari_tiket/seat/<model("travel.pool.line"):schedule>/', auth='user', website=True)
     def web_tiketseat(self, schedule):

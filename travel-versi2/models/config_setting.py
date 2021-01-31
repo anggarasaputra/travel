@@ -8,7 +8,7 @@ class SetttingTravel(models.TransientModel):
     coa_travel = fields.Many2one('account.account', string='Coa Trevel')
     produk_travel = fields.Many2one('product.product', string='Product Trevel')
     time_book = fields.Integer(string="Time Book")
-    merchant_code = fields.Char(string="Merchant Code IP88")
+    merchant_code = fields.Char(string="Merchant Code IP88",default="0")
 
     def set_values(self):
         res = super(SetttingTravel, self).set_values()
