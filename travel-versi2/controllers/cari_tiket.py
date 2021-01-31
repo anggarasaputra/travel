@@ -159,8 +159,10 @@ class Caritiket(http.Controller):
                         for h in hasil:
                             penampung.append(h)
                         hasil_sort = sorted(penampung)
+                        hasil_sort = list(dict.fromkeys(hasil_sort))
                         id_seat.write({'hasil': hasil_sort})
                     else:
+                        penampung = list(dict.fromkeys(penampung))
                         id_seat.write({'hasil': penampung})
                 else:
                     hasil_tahap1 = []
@@ -184,8 +186,10 @@ class Caritiket(http.Controller):
                         for h in hasil:
                             hasil_marge.append(h)
                         hasil_sort = sorted(hasil_marge)
+                        hasil_sort = list(dict.fromkeys(hasil_sort))
                         id_seat.write({'hasil': hasil_sort})
                     else:
+                        hasil_marge = list(dict.fromkeys(hasil_marge))
                         id_seat.write({'hasil': hasil_marge})
             if schedule.pool_location.city == schedule.schedule.destination.city:
                 hasil_tahap1 = []
@@ -209,9 +213,11 @@ class Caritiket(http.Controller):
                     for h in hasil:
                         hasil_marge.append(h)
                     hasil_sort = sorted(hasil_marge)
+                    hasil_sort = list(dict.fromkeys(hasil_sort))
                     id_seat.write({'hasil': hasil_sort})
                 else:
                     hasil_sorted = sorted(hasil_marge)
+                    hasil_sorted = list(dict.fromkeys(hasil_sorted))
                     id_seat.write({'hasil': hasil_sorted})
         pembayaran = request.params.get('pembayarans')
         penjemputan = request.params.get('penjemputan')
