@@ -30,6 +30,7 @@
 							<field name="departure" attrs="{'invisible': [('state','=','waiting')],'readonly': [('state', '=', 'travel')]}"/>
 							<field name="destination" attrs="{'invisible': [('state','=','waiting')],'readonly': [('state', '=', 'travel')]}"/>
 							<field name="pembayaran" attrs="{'invisible': [('state','=','waiting')],'readonly': [('state', '=', 'travel')]}"/>
+							<field name="partner_id" string="Customer"/>
 						</group>
 						<group name="group_right">
 							<field name="departure_date" attrs="{'readonly': [('state', '!=', 'order')]}"/>
@@ -61,7 +62,7 @@
 				<field name="departure"/>
 				<field name="destination"/>
 				<!--admin dapat melihat user yg membuat order-->
-				<field name="create_uid" groups="base.group_system" string="User"/>
+				<field name="partner_id" string="Customer"/>
 				<field name="state" groups="base.group_system" string="Status"/>
 			</tree>
 		</field>
