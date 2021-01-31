@@ -67,6 +67,8 @@ class Caritiket(http.Controller):
                 methods=['POST'], website=True)
     def web_tiket_order(self, schedule, **kw):
         # seat = request.params.get('seat')
+        uid = request.uid
+        partner = request.env['res.users'].sudo ().browse (uid).partner_id
         seats = request.httprequest.form.getlist('seats[]')
         # seats = eval(seat)
         cek = False
@@ -166,6 +168,7 @@ class Caritiket(http.Controller):
         data_order['departure_date'] = schedule.schedule.departure_date
         data_order['departure_time'] = schedule.departure_perpool
         data_order['destination'] = schedule.pool_location.id
+        data_order['partner_id'] = partner.id
         data_order['pembayaran'] = int(pembayaran)
         data_order['lokasi_penjemputan'] = penjemputan
         data_order['price_travel'] = float(price)
