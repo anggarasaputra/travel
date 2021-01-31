@@ -78,6 +78,23 @@ class TravelOrder(models.Model):
 		validate_invoice.action_invoice_open()
 		self.write({'state': 'travel'})
 
+		account_payment = self.env['account.payment']
+		new_account_payment = account_payment.create ({
+			'payment_type': 'inbound',
+			'partner_type': 'customer',
+			'partner_id': self.partner_id.id,
+			'amount': self.price_travel,
+			'journal_id': self.pembayaran.id,
+			'payment_date': datetime.now (),
+			'payment_method_id': 1,
+			'communication': validate_invoice.number,
+			'payment_reference': validate_invoice.number,
+		})
+		new_account_payment.post ()
+
+		data_jurnal_assign = new_account_payment.move_line_ids.filtered (lambda x: x.credit > 0)
+		validate_invoice.assign_outstanding_credit (data_jurnal_assign.id)
+
 	def cancel(self):
 		self.write({'state': 'order'})
 
