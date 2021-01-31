@@ -80,6 +80,17 @@
                             </div>
                         </div>
                     </div>
+                    <h2 name="travel-versi2">
+                        Config Merchant Code IP88
+                    </h2>
+                    <div name="merchant_code2" class="row mt16 o_settings_container">
+                        <div class="col-xs-12 col-md-6 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <label for="merchant_code" string="Merchant Code IP88"/>
+                                <field name="merchant_code"/>
+                            </div>
+                        </div>
+                    </div>
 
                 </div>
             </xpath>

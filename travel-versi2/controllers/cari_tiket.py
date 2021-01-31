@@ -1,3 +1,5 @@
+import requests
+
 from odoo import http
 from odoo.http import request
 from datetime import datetime
@@ -212,19 +214,42 @@ class Caritiket(http.Controller):
         travel_order = request.env['travel.order'].sudo()
         order = travel_order.create(data_order)
         seat_line = request.env['travel.seat.line']
+        merchant_code = request.env['ir.config_parameter'].sudo().get_param('travel-versi2.merchant_code')
+        jurnal = request.env['account.journal'].sudo().search([('id', '=', int(pembayaran))])
         for seat in seats:
             se = int(seat)
             data = {'order_id': order.id, 'seat_list': se}
             seat_line.create(data)
+        # return request.render('travel-versi2.order_success', {
+        #     'title': 'Order Success!',
+        #     'message': 'Please Pay Your Invoice',
+        # })
+        numberva = jurnal.numberva
+        kirim_data = {
+            'MerchantCode': merchant_code,
+            'PaymentId': str(numberva),
+            'RefNo': order.name,
+            'Amount': price,
+            'Currency': 'IDR',
+            'ProdDesc': 'Tiket',
+            'UserName': partner.name,
+            'UserEmail': partner.email,
+            'UserContact': partner.phone,
+            'Remark': '',
+            'Lang': 'UTF-8',
+            'Signature': 'iIMzpjZCrhJ2Yt2dor1PaFEFI=',
+            'ResponseURL': 'http://www.abc.com/payment/response.asp',
+            'BackendURL': 'http://www.abc.com/payment/backend_response.asp'
+        }
+
+        url = "https://sandbox.ipay88.co.id/epayment/entry.asp"
+        # myobj = {'MerchantCode': 'ID00001','PaymentId': '1','RefNo': 'A00000001','Amount': '300000','Currency': 'IDR','ProdDesc': 'Photo Print','UserName': 'John Tan','UserEmail': 'john@hotmail.com','UserContact': '0126500100','Remark': '','Lang': 'UTF-8','Signature': 'iIMzpjZCrhJ2Yt2dor1PaFEFI=','ResponseURL': 'http://www.abc.com/payment/response.asp','BackendURL': 'http://www.abc.com/payment/backend_response.asp'}
+        x = requests.post(url, data=kirim_data)
+        print(x.text)
         return request.render('travel-versi2.order_success', {
             'title': 'Order Success!',
             'message': 'Please Pay Your Invoice',
         })
-
-        # url = "https://sandbox.ipay88.co.id/epayment/entry.asp"
-        # myobj = {'MerchantCode': 'ID00001','PaymentId': '1','RefNo': 'A00000001','Amount': '300000','Currency': 'IDR','ProdDesc': 'Photo Print','UserName': 'John Tan','UserEmail': 'john@hotmail.com','UserContact': '0126500100','Remark': '','Lang': 'UTF-8','Signature': 'iIMzpjZCrhJ2Yt2dor1PaFEFI=','ResponseURL': 'http://www.abc.com/payment/response.asp','BackendURL': 'http://www.abc.com/payment/backend_response.asp'}
-        # x = requests.post (url, data=myobj)
-        # print (x.text)
 
     # @http.route('/travel/cari_tiket/seat/<model("travel.pool.line"):schedule>/pay', type='http', auth="user",
     #             methods=['POST'], website=True)
