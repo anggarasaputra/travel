@@ -31,6 +31,7 @@
 							<field name="destination" attrs="{'invisible': [('state','=','waiting')],'readonly': [('state', '=', 'travel')]}"/>
 							<field name="pembayaran" attrs="{'invisible': [('state','=','waiting')],'readonly': [('state', '=', 'travel')]}"/>
 							<field name="partner_id" string="Customer"/>
+							<field name="price_travel" string="Nominal Bayar"/>
 						</group>
 						<group name="group_right">
 							<field name="departure_date" attrs="{'readonly': [('state', '!=', 'order')]}"/>
