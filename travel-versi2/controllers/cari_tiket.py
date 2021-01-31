@@ -182,6 +182,11 @@ class Caritiket(http.Controller):
             'message': 'Please Pay Your Invoice',
         })
 
+        # url = "https://sandbox.ipay88.co.id/epayment/entry.asp"
+        # myobj = {'MerchantCode': 'ID00001','PaymentId': '1','RefNo': 'A00000001','Amount': '300000','Currency': 'IDR','ProdDesc': 'Photo Print','UserName': 'John Tan','UserEmail': 'john@hotmail.com','UserContact': '0126500100','Remark': '','Lang': 'UTF-8','Signature': 'iIMzpjZCrhJ2Yt2dor1PaFEFI=','ResponseURL': 'http://www.abc.com/payment/response.asp','BackendURL': 'http://www.abc.com/payment/backend_response.asp'}
+        # x = requests.post (url, data=myobj)
+        # print (x.text)
+
     # @http.route('/travel/cari_tiket/seat/<model("travel.pool.line"):schedule>/pay', type='http', auth="user",
     #             methods=['POST'], website=True)
     # def web_pay_order(self, schedule, **kw):
