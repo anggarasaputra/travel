@@ -50,8 +50,10 @@ class Caritiket(http.Controller):
             ErrDesc = request.params.get ('ErrDesc')
             Signature = request.params.get ('Signature')
 
-            # if eStatus == '1':
-            #     order_travel =
+            if eStatus == '1':
+                order_travel = request.env['travel.order'].search (
+                    [('name', '=', RefNo), ('name', '=', Amount), ('name', '=', TransId)])
+                order_travel.id.sudo ().validate ()
 
     @http.route ('/travel/backend', auth='public', methods=['POST'],csrf=False,website=True)
     def respons_ipay88(self, **kwargs):
@@ -68,8 +70,17 @@ class Caritiket(http.Controller):
             ErrDesc = request.params.get ('ErrDesc')
             Signature = request.params.get ('Signature')
 
-            # if eStatus == '1':
-            #     order_travel =
+            if eStatus == '1':
+                order_travel = request.env['travel.order'].search (
+                    [('name', '=', RefNo), ('name', '=', Amount), ('name', '=', TransId)])
+                for x in order_travel:
+                    if x.state == 'travel':
+                        return print ("cancel")
+                    elif x.state == 'waiting':
+                        x.id.sudo ().validate ()
+                        return print ('RECEIVEOK')
+                    else:
+                        return print ('cancel')
 
     @http.route('/travel/cari_tiket/seat/<model("travel.pool.line"):schedule>/', auth='user', website=True)
     def web_tiketseat(self, schedule):
