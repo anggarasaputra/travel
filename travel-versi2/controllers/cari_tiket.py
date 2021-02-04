@@ -1,3 +1,6 @@
+import base64
+import hashlib
+
 import requests
 
 from odoo import http
@@ -247,11 +250,17 @@ class Caritiket(http.Controller):
             data = {'order_id': order.id, 'seat_list': se}
             seat_line.create(data)
         numberva = jurnal.numberva
+        MerchantKey = '9oXTV52noa'
+        Currency = 'IDR'
+        convert_harga = str(int(price))+"00"
+        signaturea = MerchantKey + merchant_code + order.name + convert_harga + Currency
+        digest = hashlib.sha1 (signaturea.encode ('utf-8')).digest ()
+        hasil_signature = base64.b64encode(digest)
         return request.render('travel-versi2.order_success', {
             'MerchantCode': merchant_code,
             'PaymentId': str(numberva),
             'RefNo': order.name,
-            'Amount': price,
+            'Amount': convert_harga,
             'Currency': "IDR",
             'ProdDesc': "Tiket",
             'UserName': partner.name,
@@ -259,7 +268,7 @@ class Caritiket(http.Controller):
             'UserContact': partner.phone,
             'Remark': '',
             'Lang': "UTF-8",
-            'Signature': "iIMzpjZCrhJ2Yt2dor1PaFEFI=",
+            'Signature': hasil_signature,
             'ResponseURL': "http://nafatrans.com/payment/response.asp",
             'BackendURL': "http://nafatarns.com/payment/backend_response.asp",
         })
