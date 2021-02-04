@@ -34,7 +34,8 @@
 									<p>
 										Departure : <span t-field="doc.departure"/><br/>
 										Destination : <span t-field="doc.destination"/><br/>
-										Car Type : <span t-field="doc.schedule_id.vehicle"/>
+										Car Type : <span t-field="doc.schedule_id.vehicle"/><br/>
+										Pesanan : <span t-field="doc.pesanan"/><br/>s
 									</p>
 								</div>
 								<div class="col-xs-6" style="font-size: 15px !important;" >

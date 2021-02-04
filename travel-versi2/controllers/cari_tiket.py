@@ -1,6 +1,6 @@
 import base64
 import hashlib
-
+from odoo.exceptions import ValidationError, AccessError, MissingError, UserError
 import requests
 
 from odoo import http
@@ -20,6 +20,11 @@ class Caritiket(http.Controller):
     @http.route('/travel/cari_tiket/cari', auth='user', website=True)
     def web_caritiket(self, **kwargs):
         if request.httprequest.method == 'POST':
+            uid = request.uid
+            partner = request.env['res.users'].browse(uid)
+            if not partner.partner_id.street or not partner.partner_id.phone or not partner.partner_id.city:
+                payload = {'phone': '', 'street': '', 'city': ''}
+                return request.redirect('/my/account')
             asal = request.params.get('asal')
             tujuan = request.params.get('tujuan')
             tanggal = request.params.get('tanggal')
@@ -134,7 +139,6 @@ class Caritiket(http.Controller):
         # seats = eval(seat)
         cek = False
         price = 0
-        print('ini seat',seats)
 
         for seat in seats:
             cek = True
@@ -155,7 +159,6 @@ class Caritiket(http.Controller):
                 order="number desc")
             id_seat = request.env['travel.seat'].search(
                 [('schedule_id', '=', id_schedule.id), ('id', '=', int(se))])
-            print('id seat', id_seat)
             penampung = []
             if schedule.pool_location_from.city == schedule.schedule.departure.city:
                 if int(schedule.number) == 1:
@@ -240,6 +243,7 @@ class Caritiket(http.Controller):
         data_order['lokasi_penjemputan'] = penjemputan
         data_order['price_travel'] = float(price)
         data_order['state'] = 'waiting'
+        data_order['pesanan'] = schedule.pool_location_from.city + ' - '+ schedule.pool_location.city
         travel_order = request.env['travel.order'].sudo()
         order = travel_order.create(data_order)
         seat_line = request.env['travel.seat.line']
@@ -257,6 +261,9 @@ class Caritiket(http.Controller):
         digest = hashlib.sha1 (signaturea.encode ('utf-8')).digest ()
         hasil_signature = base64.b64encode(digest)
         return request.render('travel-versi2.order_success', {
+            'nama': partner.name,
+            'nomer': partner.phone,
+            'tagihan': float(price),
             'MerchantCode': merchant_code,
             'PaymentId': str(numberva),
             'RefNo': order.name,

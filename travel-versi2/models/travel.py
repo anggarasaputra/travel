@@ -22,6 +22,7 @@ class TravelOrder(models.Model):
 	latitut = fields.Char(string='Latitut')
 	longtitude = fields.Char(string='Longtitude')
 	pembayaran = fields.Many2one('account.journal')
+	pesanan = fields.Char(string='Pesanan')
 
 	state = fields.Selection([
             ('order', 'Order'),
