@@ -43,7 +43,7 @@ class Caritiket(http.Controller):
                     'schedules': scedule,
                 })
 
-    @http.route ('/travel/respons', methods=['POST'], csrf=False, website=True)
+    @http.route ('/travel/respons', methods=['POST'], auth='public', csrf=False, website=True)
     def respons_ipay88(self, **kwargs):
         MerchantCode = request.params.get ('MerchantCode')
         PaymentId = request.params.get ('PaymentId')
@@ -65,7 +65,7 @@ class Caritiket(http.Controller):
         else:
             return Response("Tolak")
 
-    @http.route ('/travel/backend', methods=['POST'], csrf=False, website=True)
+    @http.route ('/travel/backend', methods=['POST'],auth='public', csrf=False, website=True)
     def respons_ipay88_1(self, **kwargs):
         MerchantCode = request.params.get ('MerchantCode')
         PaymentId = request.params.get ('PaymentId')
@@ -273,6 +273,6 @@ class Caritiket(http.Controller):
             'Lang': "UTF-8",
             'Signature': hasil_signature,
             'ResponseURL': "http://nafatrans.com/travel/response",
-            'BackendURL': "http://nafatarns.com/travel/backend",
+            'BackendURL': "http://nafatrans.com/travel/backend",
         })
 
