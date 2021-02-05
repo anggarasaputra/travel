@@ -276,7 +276,7 @@ class Caritiket(http.Controller):
             'Remark': '',
             'Lang': "UTF-8",
             'Signature': hasil_signature,
-            'ResponseURL': "http://nafatrans.com/payment/response.asp",
-            'BackendURL': "http://nafatarns.com/payment/backend_response.asp",
+            'ResponseURL': "http://nafatrans.com/travel/response",
+            'BackendURL': "http://nafatarns.com/travel/backend",
         })
 

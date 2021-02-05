@@ -20,10 +20,8 @@
                                     <p class="card-text form-control">Harga :
                                         <t t-esc="tagihan"/>
                                     </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="panel panel-primary o_panel s_panel">
+
+                            <div class="panel panel-primary o_panel s_panel">
                             <div class="panel-body table-responsive">
                                 <!--						<h1><t t-esc="title"/></h1>-->
                                 <!--						<p><t t-esc="message"/></p>-->
@@ -45,6 +43,9 @@
                                     <input type="hidden" name="BackendURL" t-att-value="BackendURL"/>
                                     <input type="submit" value="Proceed with Payment" name="Submit"/>
                                 </form>
+                            </div>
+                        </div>
+                                </div>
                             </div>
                         </div>
                     </div>
