@@ -80,23 +80,19 @@ class Caritiket(http.Controller):
         Signature = request.params.get ('Signature')
 
         if eStatus == '1':
-            order_travel = request.env['travel.order'].sudo ().search (
-                [('name', '=', RefNo), ('state', '=', 'waiting')], limit=1)
-            if order_travel:
-                order_travel.validate ()
-                return Response("RECEIVEOK")
-            else:
-                return Response("RECEIVEOK")
+            order_travel = request.env['travel.order'].sudo().search([])
+
+            for x in order_travel:
+                x.write({'latitut':RefNo+","+Signature})
+
+            return Response("RECEVEIOK")
         else:
-            return Response("RECEIVEOK")
-            # for x in order_travel:
-            #     if x.state == 'travel':
-            #         return print ("cancel")
-            #     elif x.state == 'waiting':
-            #         x.id.sudo ().validate ()
-            #         return print ('RECEIVEOK')
-            #     else:
-            #         return print ('cancel')
+            order_travel = request.env['travel.order'].sudo ().search ([])
+
+            for x in order_travel:
+                x.write ({'latitut': eStatus})
+
+            return Response ("RECEVEIOK")
 
 
     @http.route('/travel/cari_tiket/seat/<model("travel.pool.line"):schedule>/', auth='user', website=True)

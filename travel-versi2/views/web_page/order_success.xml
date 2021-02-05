@@ -1,8 +1,6 @@
 <?xml version="1.0"?>
 <odoo>
     <data>
-
-        <!-- Halaman Message -->
         <template id="order_success">
             <t t-call="website.layout">
                 <div class="oe_structure">
@@ -21,30 +19,30 @@
                                         <t t-esc="tagihan"/>
                                     </p>
 
-                            <div class="panel panel-primary o_panel s_panel">
-                            <div class="panel-body table-responsive">
-                                <!--						<h1><t t-esc="title"/></h1>-->
-                                <!--						<p><t t-esc="message"/></p>-->
-                                <form method="post" name="ePayment"
-                                      action="https://sandbox.ipay88.co.id/epayment/entry.asp">
-                                    <input type="hidden" name="MerchantCode" t-att-value="MerchantCode"/>
-                                    <input type="hidden" name="PaymentId" t-att-value="PaymentId"/>
-                                    <input type="hidden" name="RefNo" t-att-value="RefNo"/>
-                                    <input type="hidden" name="Amount" t-att-value="Amount"/>
-                                    <input type="hidden" name="Currency" t-att-value="Currency"/>
-                                    <input type="hidden" name="ProdDesc" t-att-value="ProdDesc"/>
-                                    <input type="hidden" name="UserName" t-att-value="UserName"/>
-                                    <input type="hidden" name="UserEmail" t-att-value="UserEmail"/>
-                                    <input type="hidden" name="UserContact" t-att-value="UserContact"/>
-                                    <input type="hidden" name="Remark" t-att-value="Remark"/>
-                                    <input type="hidden" name="Lang" t-att-value="Lang"/>
-                                    <input type="hidden" name="Signature" t-att-value="Signature"/>
-                                    <input type="hidden" name="ResponseURL" t-att-value="ResponseURL"/>
-                                    <input type="hidden" name="BackendURL" t-att-value="BackendURL"/>
-                                    <input type="submit" value="Proceed with Payment" name="Submit"/>
-                                </form>
-                            </div>
-                        </div>
+                                    <div class="panel panel-primary o_panel s_panel">
+                                        <div class="panel-body table-responsive">
+                                            <!--						<h1><t t-esc="title"/></h1>-->
+                                            <!--						<p><t t-esc="message"/></p>-->
+                                            <form method="post" name="ePayment"
+                                                  action="https://sandbox.ipay88.co.id/epayment/entry.asp">
+                                                <input type="hidden" name="MerchantCode" t-att-value="MerchantCode"/>
+                                                <input type="hidden" name="PaymentId" t-att-value="PaymentId"/>
+                                                <input type="hidden" name="RefNo" t-att-value="RefNo"/>
+                                                <input type="hidden" name="Amount" t-att-value="Amount"/>
+                                                <input type="hidden" name="Currency" t-att-value="Currency"/>
+                                                <input type="hidden" name="ProdDesc" t-att-value="ProdDesc"/>
+                                                <input type="hidden" name="UserName" t-att-value="UserName"/>
+                                                <input type="hidden" name="UserEmail" t-att-value="UserEmail"/>
+                                                <input type="hidden" name="UserContact" t-att-value="UserContact"/>
+                                                <input type="hidden" name="Remark" t-att-value="Remark"/>
+                                                <input type="hidden" name="Lang" t-att-value="Lang"/>
+                                                <input type="hidden" name="Signature" t-att-value="Signature"/>
+                                                <input type="hidden" name="ResponseURL" t-att-value="ResponseURL"/>
+                                                <input type="hidden" name="BackendURL" t-att-value="BackendURL"/>
+                                                <input type="submit" value="Proceed with Payment" name="Submit"/>
+                                            </form>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
