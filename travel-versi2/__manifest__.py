@@ -25,6 +25,7 @@
              'views/web_page/hasil_tiket.xml',
              'views/web_page/seat.xml',
              'views/web_page/ordertiket.xml',
+             'views/web_page/order_success_cash.xml',
              'security/ir.model.access.csv',
              'security/travel_access_rule.xml',
              'reports/travel_order_report.xml',

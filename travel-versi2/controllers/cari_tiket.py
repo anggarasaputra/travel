@@ -43,57 +43,56 @@ class Caritiket(http.Controller):
                     'schedules': scedule,
                 })
 
-    @http.route ('/travel/respons', methods=['POST'], auth='public', csrf=False, website=True)
+    @http.route('/travel/respons', methods=['POST'], auth='public', csrf=False, website=True)
     def respons_ipay88(self, **kwargs):
-        MerchantCode = request.params.get ('MerchantCode')
-        PaymentId = request.params.get ('PaymentId')
-        RefNo = request.params.get ('RefNo')
-        Amount = request.params.get ('Amount')
-        eCurrency = request.params.get ('Currency')
-        Remark = request.params.get ('Remark')
-        TransId = request.params.get ('TransId')
-        AuthCode = request.params.get ('AuthCode')
-        eStatus = request.params.get ('Status')
-        ErrDesc = request.params.get ('ErrDesc')
-        Signature = request.params.get ('Signature')
+        MerchantCode = request.params.get('MerchantCode')
+        PaymentId = request.params.get('PaymentId')
+        RefNo = request.params.get('RefNo')
+        Amount = request.params.get('Amount')
+        eCurrency = request.params.get('Currency')
+        Remark = request.params.get('Remark')
+        TransId = request.params.get('TransId')
+        AuthCode = request.params.get('AuthCode')
+        eStatus = request.params.get('Status')
+        ErrDesc = request.params.get('ErrDesc')
+        Signature = request.params.get('Signature')
 
         if eStatus == '1':
-            order_travel = request.env['travel.order'].sudo ().search (
+            order_travel = request.env['travel.order'].sudo().search(
                 [('name', '=', RefNo), ('state', '=', 'waiting')], limit=1)
-            order_travel.validate ()
+            order_travel.validate()
             return Response("RECEIVEOK")
         else:
             return Response("Tolak")
 
-    @http.route ('/travel/backend', methods=['POST'],auth='public', csrf=False, website=True)
+    @http.route('/travel/backend', methods=['POST'], auth='public', csrf=False, website=True)
     def respons_ipay88_1(self, **kwargs):
-        MerchantCode = request.params.get ('MerchantCode')
-        PaymentId = request.params.get ('PaymentId')
-        RefNo = request.params.get ('RefNo')
-        Amount = request.params.get ('Amount')
-        eCurrency = request.params.get ('Currency')
-        Remark = request.params.get ('Remark')
-        TransId = request.params.get ('TransId')
-        AuthCode = request.params.get ('AuthCode')
-        eStatus = request.params.get ('Status')
-        ErrDesc = request.params.get ('ErrDesc')
-        Signature = request.params.get ('Signature')
+        MerchantCode = request.params.get('MerchantCode')
+        PaymentId = request.params.get('PaymentId')
+        RefNo = request.params.get('RefNo')
+        Amount = request.params.get('Amount')
+        eCurrency = request.params.get('Currency')
+        Remark = request.params.get('Remark')
+        TransId = request.params.get('TransId')
+        AuthCode = request.params.get('AuthCode')
+        eStatus = request.params.get('Status')
+        ErrDesc = request.params.get('ErrDesc')
+        Signature = request.params.get('Signature')
 
         if eStatus == '1':
             order_travel = request.env['travel.order'].sudo().search([])
 
             for x in order_travel:
-                x.write({'latitut':RefNo+","+Signature})
+                x.write({'latitut': RefNo + "," + Signature})
 
             return Response("RECEVEIOK")
         else:
-            order_travel = request.env['travel.order'].sudo ().search ([])
+            order_travel = request.env['travel.order'].sudo().search([])
 
             for x in order_travel:
-                x.write ({'latitut': eStatus})
+                x.write({'latitut': eStatus})
 
-            return Response ("RECEVEIOK")
-
+            return Response("RECEVEIOK")
 
     @http.route('/travel/cari_tiket/seat/<model("travel.pool.line"):schedule>/', auth='user', website=True)
     def web_tiketseat(self, schedule):
@@ -116,7 +115,8 @@ class Caritiket(http.Controller):
         uid = request.uid
         allow_payment_cash = request.env['res.users'].browse(uid).allow_payment_cash
         if allow_payment_cash == True:
-            pembayaran = request.env['account.journal'].sudo().search(['|', ('type', '=', 'bank'), ('type', '=', 'cash')])
+            pembayaran = request.env['account.journal'].sudo().search(
+                ['|', ('type', '=', 'bank'), ('type', '=', 'cash')])
         else:
             pembayaran = request.env['account.journal'].sudo().search([('type', '=', 'bank')])
         return request.render('travel-versi2.tiketseat', {
@@ -130,7 +130,7 @@ class Caritiket(http.Controller):
     def web_tiket_order(self, schedule, **kw):
         # seat = request.params.get('seat')
         uid = request.uid
-        partner = request.env['res.users'].sudo ().browse (uid).partner_id
+        partner = request.env['res.users'].sudo().browse(uid).partner_id
         seats = request.httprequest.form.getlist('seats[]')
         # seats = eval(seat)
         cek = False
@@ -228,6 +228,7 @@ class Caritiket(http.Controller):
                     id_seat.write({'hasil': hasil_sorted})
         pembayaran = request.params.get('pembayarans')
         penjemputan = request.params.get('penjemputan')
+        cek_cash = request.env['account.journal'].sudo().search([('id', '=', int(pembayaran))])
         data_order = {}
         data_order['schedule_id'] = schedule.schedule.id
         data_order['departure'] = schedule.pool_location_from.id
@@ -239,7 +240,7 @@ class Caritiket(http.Controller):
         data_order['lokasi_penjemputan'] = penjemputan
         data_order['price_travel'] = float(price)
         data_order['state'] = 'waiting'
-        data_order['pesanan'] = schedule.pool_location_from.city + ' - '+ schedule.pool_location.city
+        data_order['pesanan'] = schedule.pool_location_from.city + ' - ' + schedule.pool_location.city
         travel_order = request.env['travel.order'].sudo()
         order = travel_order.create(data_order)
         seat_line = request.env['travel.seat.line']
@@ -252,27 +253,32 @@ class Caritiket(http.Controller):
         numberva = jurnal.numberva
         MerchantKey = '9oXTV52noa'
         Currency = 'IDR'
-        convert_harga = str(int(price))+"00"
+        convert_harga = str(int(price)) + "00"
         signaturea = MerchantKey + merchant_code + order.name + convert_harga + Currency
-        digest = hashlib.sha1 (signaturea.encode ('utf-8')).digest ()
+        digest = hashlib.sha1(signaturea.encode('utf-8')).digest()
         hasil_signature = base64.b64encode(digest)
-        return request.render('travel-versi2.order_success', {
-            'nama': partner.name,
-            'nomer': partner.phone,
-            'tagihan': float(price),
-            'MerchantCode': merchant_code,
-            'PaymentId': str(numberva),
-            'RefNo': order.name,
-            'Amount': convert_harga,
-            'Currency': "IDR",
-            'ProdDesc': "Tiket",
-            'UserName': partner.name,
-            'UserEmail': partner.email,
-            'UserContact': partner.phone,
-            'Remark': '',
-            'Lang': "UTF-8",
-            'Signature': hasil_signature,
-            'ResponseURL': "http://nafatrans.com/travel/response",
-            'BackendURL': "http://nafatrans.com/travel/backend",
-        })
-
+        if cek_cash.type == 'cash':
+            return request.render('travel-versi2.order_success_cash', {
+                'title': 'Order Success!',
+                'message': 'Please Pay Your Invoice',
+            })
+        else:
+            return request.render('travel-versi2.order_success', {
+                'nama': partner.name,
+                'nomer': partner.phone,
+                'tagihan': float(price),
+                'MerchantCode': merchant_code,
+                'PaymentId': str(numberva),
+                'RefNo': order.name,
+                'Amount': convert_harga,
+                'Currency': "IDR",
+                'ProdDesc': "Tiket",
+                'UserName': partner.name,
+                'UserEmail': partner.email,
+                'UserContact': partner.phone,
+                'Remark': '',
+                'Lang': "UTF-8",
+                'Signature': hasil_signature,
+                'ResponseURL': "http://nafatrans.com/travel/response",
+                'BackendURL': "http://nafatrans.com/travel/backend",
+            })

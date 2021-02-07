@@ -1,0 +1,17 @@
+<odoo>
+	<data>
+
+		<!-- Halaman Message -->
+		<template id="order_success_cash">
+			<t t-call="website.layout">
+               <div class="oe_structure">
+					<div class="container">
+						<h1><t t-esc="title"/></h1>
+						<p><t t-esc="message"/></p>
+					</div>
+                </div>
+            </t>
+		</template>
+
+	</data>
+</odoo>
