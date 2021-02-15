@@ -41,16 +41,30 @@ class Caritiket(http.Controller):
                     'message': 'Pilih Tanggal Minimal Hari INI!!',
                 })
             elif hari == cek:
+                cek_seat = False
                 scedule = request.env['travel.pool.line'].search(
                     [('schedule.departure_date', '=', tanggal), ('pool_location_from', '=', asal),
                      ('pool_location', '=', tujuan), ('departure_perpool', '>', float_hari)])
+                for x in scedule:
+                    for y in x.schedule.seat_list:
+                        if not y.hasil:
+                            cek_seat = True
+                if not cek_seat:
+                    scedule = request.env['travel.pool.line'].search([('id', '=', False)])
                 return request.render('travel-versi2.hasiltiket', {
                     'schedules': scedule,
                 })
             else:
+                cek_seat = False
                 scedule = request.env['travel.pool.line'].search(
                     [('schedule.departure_date', '=', tanggal), ('pool_location_from', '=', asal),
                      ('pool_location', '=', tujuan)])
+                for x in scedule:
+                    for y in x.schedule.seat_list:
+                        if not y.hasil:
+                            cek_seat = True
+                if not cek_seat:
+                    scedule = request.env['travel.pool.line'].search([('id', '=', False)])
                 return request.render('travel-versi2.hasiltiket', {
                     'schedules': scedule,
                 })
