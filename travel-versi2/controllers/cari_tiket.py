@@ -29,11 +29,23 @@ class Caritiket(http.Controller):
             tujuan = request.params.get('tujuan')
             tanggal = request.params.get('tanggal')
             hari = datetime.now().date()
+            waktu = datetime.now().time()
             cek = datetime.strptime(tanggal, '%Y-%m-%d').date()
+            jam = waktu.hour
+            menit = waktu.minute
+            ws = str(jam)+'.'+str(menit)
+            float_hari = float(ws)
             if hari > cek:
                 return request.render('travel-versi2.order_success', {
                     'title': 'CEK INPUT!',
                     'message': 'Pilih Tanggal Minimal Hari INI!!',
+                })
+            elif hari == cek:
+                scedule = request.env['travel.pool.line'].search(
+                    [('schedule.departure_date', '=', tanggal), ('pool_location_from', '=', asal),
+                     ('pool_location', '=', tujuan), ('departure_perpool', '>', float_hari)])
+                return request.render('travel-versi2.hasiltiket', {
+                    'schedules': scedule,
                 })
             else:
                 scedule = request.env['travel.pool.line'].search(
