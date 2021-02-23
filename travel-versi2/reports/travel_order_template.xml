@@ -13,7 +13,7 @@
 				<div class="header">
 					<div class="row">
 						<div class="col-xs-6">
-							<img t-if="company.logo" t-att-src="'data:image/png;base64,%s' % company.logo" style="max-height: 85px;" />
+							<img src='/web/binary/company_logo'/>
 						</div>
 						<div class="col-xs-6 text-right" style="font:15px lucida-console,sans-serif !important; background-color:#893b74 !important;" >
 							<span style="color:#fff !important;" t-field="company.partner_id" /><br/>
